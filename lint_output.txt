@@ -1,0 +1,80 @@
+﻿
+> stonehouse@0.0.0 lint
+> eslint .
+
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\components\BackToTop.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\components\Header.jsx
+  4:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\components\NextPage.jsx
+  4:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\components\ProductCard.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\components\ProductModal.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\components\ServiceCard.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\About.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\Blog.jsx
+   2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                            no-unused-vars
+  58:9   error  Error: This value cannot be modified
+
+Modifying a variable defined outside a component or hook is not allowed. Consider using an effect.
+
+  56 |     const openModal = (post) => {
+  57 |         setSelectedPost(post);
+> 58 |         document.body.style.overflow = 'hidden';
+     |         ^^^^^^^^^^^^^^^^^^^ value cannot be modified
+  59 |     };
+  60 |
+  61 |     const closeModal = () => {  react-hooks/immutability
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\Contact.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\FAQ.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\Gallery.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\Home.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\Process.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\ProductDetail.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\Products.jsx
+   3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                               no-unused-vars
+  16:9   error  Error: This value cannot be modified
+
+Modifying a variable defined outside a component or hook is not allowed. Consider using an effect.
+
+  14 |     const openModal = (stone) => {
+  15 |         setSelectedStone(stone);
+> 16 |         document.body.style.overflow = 'hidden';
+     |         ^^^^^^^^^^^^^^^^^^^ value cannot be modified
+  17 |     };
+  18 |
+  19 |     const closeModal = () => {  react-hooks/immutability
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\Services.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\Shiv Ganga\OneDrive\Desktop\STONEHOUSE\src\pages\WhyChooseUs.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+Γ£û 19 problems (19 errors, 0 warnings)
+
