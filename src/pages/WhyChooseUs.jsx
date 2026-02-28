@@ -31,12 +31,12 @@ const WhyChooseUs = () => {
             <div className="container">
                 <div className="why-choose-grid">
                     <motion.div
-                        initial={{ opacity: 0, x: -80, filter: 'blur(10px)' }}
+                        initial={{ opacity: 0, x: typeof window !== 'undefined' && window.innerWidth <= 768 ? -20 : -80, filter: 'blur(10px)' }}
                         whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                         viewport={{ once: true, margin: "-10%" }}
                         transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1] }}
                     >
-                        <h2 className="mb-6 leading-tight" style={{ fontSize: '4.5rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: 500, color: 'var(--text-black)' }}>
+                        <h2 className="mb-6 leading-tight" style={{ fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 500, color: 'var(--text-black)' }}>
                             Why <span className="text-primary" style={{ fontStyle: 'italic' }}>Choose Us.</span>
                         </h2>
                         <p className="text-lg text-muted leading-relaxed mb-8" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: '0.05em' }}>
@@ -48,7 +48,7 @@ const WhyChooseUs = () => {
                         {reasons.map((reason, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, x: 80, filter: 'blur(10px)' }}
+                                initial={{ opacity: 0, x: typeof window !== 'undefined' && window.innerWidth <= 768 ? 20 : 80, filter: 'blur(10px)' }}
                                 whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                                 viewport={{ once: true, margin: "-10%" }}
                                 transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.3 }}

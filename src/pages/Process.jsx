@@ -48,7 +48,7 @@ const Process = () => {
                     {steps.map((step, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, x: -100, filter: 'blur(10px)' }}
+                            initial={{ opacity: 0, x: typeof window !== 'undefined' && window.innerWidth <= 768 ? -20 : -100, filter: 'blur(10px)' }}
                             whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                             viewport={{ once: true, margin: "-10%" }}
                             transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.15 }}

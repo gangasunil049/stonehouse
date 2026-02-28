@@ -69,7 +69,7 @@ const Home = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-                        style={{ textAlign: 'center', zIndex: 10, width: '100%' }}
+                        style={{ textAlign: 'center', zIndex: 10, width: '100%', overflow: 'hidden' }}
                     >
                         <div style={{ position: 'relative', display: 'inline-block' }}>
                             {/* Original Stars */}
@@ -90,7 +90,7 @@ const Home = () => {
 
                             <h1 className="text-sparkle" style={{
                                 fontFamily: "'Cormorant Garamond', serif",
-                                fontSize: 'clamp(3rem, 6.5vw, 5rem)',
+                                fontSize: 'clamp(2.5rem, 8vw, 5rem)',
                                 lineHeight: 1.1,
                                 marginBottom: '1rem',
                                 fontWeight: 700

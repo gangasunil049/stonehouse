@@ -42,7 +42,7 @@ const About = () => {
     }, []);
 
     return (
-        <div id="about" className="about-page" style={{ backgroundColor: 'var(--bg-white)', width: '100%', overflow: 'hidden' }}>
+        <div id="about" className="about-page" style={{ backgroundColor: 'var(--bg-white)', width: '100%', overflowX: 'hidden' }}>
 
             {/* UNIFIED HERO AND CONTENT SECTION WITH BACKGROUND */}
             <section style={{ position: 'relative', marginTop: '6rem', padding: '12rem 0 8rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', overflow: 'hidden' }}>
@@ -110,7 +110,7 @@ const About = () => {
                         whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0, filter: 'blur(0px)' }}
                         viewport={{ once: true, margin: "-20%" }}
                         transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.4, staggerChildren: 0.15 }}
-                        style={{ color: 'var(--primary)', marginBottom: '6rem', perspective: '1000px' }}
+                        style={{ color: 'var(--primary)', marginBottom: '1.5rem', perspective: '1000px' }}
                     >
                         <motion.span
                             initial={{ opacity: 0, y: 20 }}
@@ -143,7 +143,7 @@ const About = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, ease: "easeOut", delay: 0.7 }}
-                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.1, color: 'var(--primary)', marginBottom: '3rem', fontWeight: 500 }}
+                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.1, color: 'var(--primary)', marginBottom: '1.5rem', fontWeight: 500, marginTop: '0' }}
                         >
                             Crafting Legacy <br /> <span style={{ fontStyle: 'italic', fontWeight: 400 }}>Through Stone.</span>
                         </motion.h2>
