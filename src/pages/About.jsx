@@ -170,13 +170,18 @@ const About = () => {
             </section>
 
             {/* STATS COUNTERS */}
-            <section style={{ backgroundColor: 'var(--bg-white)', padding: '6rem 0', borderTop: '1px solid rgba(26,54,32,0.05)', borderBottom: '1px solid rgba(26,54,32,0.05)' }}>
+            <section style={{ backgroundColor: 'var(--bg-white)', padding: isMobile ? '2rem 0 1rem 0' : '4rem 0 2rem 0', borderTop: '1px solid rgba(26,54,32,0.05)', borderBottom: '1px solid rgba(26,54,32,0.05)' }}>
                 <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '4rem', textAlign: 'center' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gap: isMobile ? '1rem' : '4rem',
+                        textAlign: 'center'
+                    }}>
                         {[
-                            { label: "Years of Experience", value: 15, suffix: "+" },
-                            { label: "Projects Completed", value: 350, suffix: "+" },
-                            { label: "Happy Clients", value: 300, suffix: "+" }
+                            { label: isMobile ? "Exp" : "Years of Experience", value: 15, suffix: "+" },
+                            { label: isMobile ? "Projects" : "Projects Completed", value: 350, suffix: "+" },
+                            { label: isMobile ? "Clients" : "Happy Clients", value: 300, suffix: "+" }
                         ].map((stat, i) => (
                             <motion.div
                                 key={i}
@@ -184,13 +189,17 @@ const About = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-10%" }}
                                 transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.15 }}
-                                whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.3 } }}
+                                whileHover={!isMobile ? { scale: 1.05, y: -5, transition: { duration: 0.3 } } : {}}
                                 style={{
-                                    padding: '2rem',
+                                    padding: isMobile ? '1rem 0.5rem' : '2rem',
                                     borderRadius: '8px',
                                     cursor: 'default',
                                     backgroundColor: 'rgba(26,54,32,0.02)',
-                                    border: '1px solid rgba(26,54,32,0.05)'
+                                    border: '1px solid rgba(26,54,32,0.05)',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
                                 }}
                             >
                                 <motion.div
@@ -198,7 +207,14 @@ const About = () => {
                                     whileInView={{ scale: 1, opacity: 1 }}
                                     viewport={{ once: true, margin: "-10%" }}
                                     transition={{ duration: 0.6, type: "spring", stiffness: 100, delay: (i * 0.15) + 0.2 }}
-                                    style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(3rem, 6vw, 4.5rem)', color: 'var(--primary)', fontWeight: 500, marginBottom: '0.5rem', lineHeight: 1 }}
+                                    style={{
+                                        fontFamily: "'Cormorant Garamond', serif",
+                                        fontSize: isMobile ? '1.8rem' : 'clamp(3rem, 6vw, 4.5rem)',
+                                        color: 'var(--primary)',
+                                        fontWeight: 500,
+                                        marginBottom: '0.2rem',
+                                        lineHeight: 1
+                                    }}
                                 >
                                     <Counter end={stat.value} suffix={stat.suffix} />
                                 </motion.div>
@@ -207,7 +223,15 @@ const About = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-10%" }}
                                     transition={{ duration: 0.5, delay: (i * 0.15) + 0.4 }}
-                                    style={{ fontFamily: "'Montserrat', sans-serif", fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--text-muted)', fontWeight: 600 }}
+                                    style={{
+                                        fontFamily: "'Montserrat', sans-serif",
+                                        fontSize: isMobile ? '0.55rem' : '0.8rem',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: isMobile ? '0.1em' : '0.15em',
+                                        color: 'var(--text-muted)',
+                                        fontWeight: 600,
+                                        whiteSpace: 'nowrap'
+                                    }}
                                 >
                                     {stat.label}
                                 </motion.div>
@@ -218,7 +242,7 @@ const About = () => {
             </section>
 
             {/* MISSION STATEMENT */}
-            <section style={{ backgroundColor: 'var(--bg-white)', padding: '8rem 0', textAlign: 'center' }}>
+            <section style={{ backgroundColor: 'var(--bg-white)', padding: isMobile ? '2rem 0' : '4rem 0', textAlign: 'center' }}>
                 <div className="container" style={{ maxWidth: '1000px', margin: '0 auto' }}>
                     <motion.div
                         initial={{ opacity: 0, y: 40 }}
@@ -226,11 +250,11 @@ const About = () => {
                         viewport={{ once: true, margin: "-10%" }}
                         transition={{ duration: 0.8, ease: "easeInOut", staggerChildren: 0.2 }}
                         style={{
-                            backgroundColor: 'white',
-                            padding: '5rem',
-                            border: '1px solid rgba(26,54,32,0.1)',
-                            borderRadius: '4px',
-                            boxShadow: '0 30px 60px rgba(0,0,0,0.03)',
+                            backgroundColor: 'var(--primary)',
+                            padding: isMobile ? '3rem 1.5rem' : '5rem',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            borderRadius: '12px',
+                            boxShadow: '0 30px 60px rgba(0,0,0,0.1)',
                             position: 'relative'
                         }}
                     >
@@ -240,9 +264,9 @@ const About = () => {
                             whileInView={{ scale: 1, opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.4, type: "spring" }}
-                            style={{ position: 'absolute', top: '-25px', left: '50%', transform: 'translateX(-50%)', backgroundColor: 'var(--primary)', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '5px solid var(--bg-white)' }}
+                            style={{ position: 'absolute', top: '-25px', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#e8d5b5', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '5px solid var(--bg-white)' }}
                         >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg>
                         </motion.div>
 
                         <motion.span
@@ -250,7 +274,7 @@ const About = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.5 }}
-                            style={{ display: 'block', fontFamily: "'Montserrat', sans-serif", fontSize: '0.8rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'var(--primary)', fontWeight: 600, marginBottom: '2rem' }}
+                            style={{ display: 'block', fontFamily: "'Montserrat', sans-serif", fontSize: '0.8rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#e8d5b5', fontWeight: 600, marginBottom: '2rem' }}
                         >
                             Our Philosophy
                         </motion.span>
@@ -260,7 +284,7 @@ const About = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontStyle: 'italic', color: 'var(--text-black)', lineHeight: 1.4, fontWeight: 400, marginBottom: '2rem' }}
+                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontStyle: 'italic', color: 'white', lineHeight: 1.4, fontWeight: 400, marginBottom: '2rem' }}
                         >
                             {isMobile
                                 ? '"Our mission is to blend architectural elegance with nature, constructing spaces that inspire peace."'
@@ -272,7 +296,7 @@ const About = () => {
                             whileInView={{ scaleX: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 1 }}
-                            style={{ width: '40px', height: '2px', backgroundColor: 'var(--primary)', margin: '0 auto', transformOrigin: 'center' }}
+                            style={{ width: '40px', height: '2px', backgroundColor: '#e8d5b5', margin: '0 auto', transformOrigin: 'center' }}
                         ></motion.div>
                     </motion.div>
                 </div>

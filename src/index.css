@@ -233,6 +233,13 @@ section {
   /* More breathing room on the side */
 }
 
+@media (max-width: 768px) {
+  .hero-main-content {
+    justify-content: center;
+    padding: 0 1.5rem;
+  }
+}
+
 .hero-branding-group {
   display: flex;
   align-items: center;
@@ -912,13 +919,14 @@ section {
 /* Why Choose Us Inner Cards Grid */
 .why-choose-cards-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
   .why-choose-cards-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 }
 
@@ -1007,13 +1015,216 @@ section {
 
 @media (max-width: 768px) {
   .services-grid {
-    grid-template-columns: 1fr;
-    /* Force to 1 column */
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    /* Changed to 2 columns */
+    gap: 1rem;
+    /* Tighter gap for mobile */
   }
 
   .services-page .container {
     padding: 0 1rem;
     overflow: hidden;
+  }
+}
+
+/* --- UTILITY CLASSES (FIX FOR TAILWIND REMNANTS) --- */
+
+.hidden {
+  display: none !important;
+}
+
+.block {
+  display: block !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto {
+  margin-right: auto !important;
+}
+
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem !important;
+}
+
+.mb-4 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem !important;
+}
+
+.mb-8 {
+  margin-bottom: 2rem !important;
+}
+
+.mb-16 {
+  margin-bottom: 4rem !important;
+}
+
+.mb-24 {
+  margin-bottom: 6rem !important;
+}
+
+.py-32 {
+  padding-top: 8rem !important;
+  padding-bottom: 8rem !important;
+}
+
+.py-20 {
+  padding-top: 5rem !important;
+  padding-bottom: 5rem !important;
+}
+
+.pt-32 {
+  padding-top: 8rem !important;
+}
+
+.pb-32 {
+  padding-bottom: 8rem !important;
+}
+
+.pt-20 {
+  padding-top: 5rem !important;
+}
+
+.pb-20 {
+  padding-bottom: 5rem !important;
+}
+
+.pt-40 {
+  padding-top: 10rem !important;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem !important;
+}
+
+.pt-10 {
+  padding-top: 2.5rem !important;
+}
+
+.text-sm {
+  font-size: 0.875rem !important;
+}
+
+.text-lg {
+  font-size: 1.125rem !important;
+}
+
+.text-xl {
+  font-size: 1.25rem !important;
+}
+
+.text-2xl {
+  font-size: 1.5rem !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.font-bold {
+  font-weight: 700 !important;
+}
+
+.font-black {
+  font-weight: 900 !important;
+}
+
+.leading-tight {
+  line-height: 1.25 !important;
+}
+
+.leading-relaxed {
+  line-height: 1.625 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .md\:hidden {
+    display: block !important;
+  }
+
+  .md\:block {
+    display: none !important;
+  }
+
+  .sm\:inline-block {
+    display: none !important;
+  }
+
+  .md\:pt-40 {
+    padding-top: 5rem !important;
+  }
+
+  /* override for mobile */
+  .md\:pb-32 {
+    padding-bottom: 5rem !important;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.block {
+  display: block !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+@media (min-width: 769px) {
+  .md\:hidden {
+    display: none !important;
+  }
+
+  .md\:block {
+    display: block !important;
+  }
+
+  .sm\:inline-block {
+    display: inline-block !important;
+  }
+
+  .md\:pt-40 {
+    padding-top: 10rem !important;
+  }
+
+  .md\:pb-32 {
+    padding-bottom: 8rem !important;
   }
 }

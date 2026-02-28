@@ -69,7 +69,7 @@ const ServiceCard = ({ service, index }) => {
             onMouseLeave={handleMouseLeave}
             className="flip-card-container cursor-pointer"
             style={{
-                height: '420px',
+                height: isMobile ? '280px' : '420px',
                 perspective: isMobile ? 'none' : '2000px',
                 WebkitFontSmoothing: 'antialiased'
             }}
@@ -117,7 +117,7 @@ const ServiceCard = ({ service, index }) => {
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '3rem 2rem',
+                            padding: isMobile ? '1.5rem 1rem' : '3rem 2rem',
                             textAlign: 'center',
                             boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
                             zIndex: 1
@@ -149,10 +149,10 @@ const ServiceCard = ({ service, index }) => {
                         {/* WATERMARK ICON */}
                         <div style={{
                             position: 'absolute',
-                            bottom: '-20px',
-                            right: '-20px',
+                            bottom: '-10px',
+                            right: '-10px',
                             opacity: 0.04,
-                            transform: 'scale(5) rotate(-15deg)',
+                            transform: isMobile ? 'scale(2.5) rotate(-15deg)' : 'scale(5) rotate(-15deg)',
                             color: 'var(--primary)',
                             pointerEvents: 'none',
                             zIndex: 0
@@ -163,9 +163,9 @@ const ServiceCard = ({ service, index }) => {
                         {/* INDEX NUMBER */}
                         <span style={{
                             position: 'absolute',
-                            top: '2.5rem',
-                            right: '2.5rem',
-                            fontSize: '0.8rem',
+                            top: isMobile ? '1rem' : '2.5rem',
+                            right: isMobile ? '1.2rem' : '2.5rem',
+                            fontSize: '0.7rem',
                             fontWeight: 300,
                             fontFamily: "'Cormorant Garamond', serif",
                             fontStyle: 'italic',
@@ -179,11 +179,11 @@ const ServiceCard = ({ service, index }) => {
 
                         <div style={{ position: 'relative', zIndex: 3 }}>
                             <h3
-                                className="text-xl mb-6 text-black uppercase"
+                                className={isMobile ? "text-sm mb-4 text-black uppercase" : "text-xl mb-6 text-black uppercase"}
                                 style={{
                                     fontFamily: "'Montserrat', sans-serif",
                                     fontWeight: 800,
-                                    letterSpacing: '0.3em',
+                                    letterSpacing: isMobile ? '0.1em' : '0.3em',
                                     lineHeight: 1.2
                                 }}
                             >
@@ -191,39 +191,45 @@ const ServiceCard = ({ service, index }) => {
                             </h3>
 
                             <div style={{
-                                width: '50px',
+                                width: isMobile ? '30px' : '50px',
                                 height: '2px',
                                 background: 'linear-gradient(90deg, transparent, #e8d5b5, transparent)',
-                                margin: '0 auto 2rem',
+                                margin: '0 auto 1.5rem',
                                 opacity: 0.8
                             }}></div>
 
                             <p
-                                className="leading-relaxed text-[0.8rem] px-6"
+                                className="leading-relaxed"
                                 style={{
+                                    fontSize: isMobile ? '0.6rem' : '0.8rem',
+                                    padding: isMobile ? '0 0.5rem' : '0 1.5rem',
                                     color: '#555',
                                     fontWeight: 500,
                                     letterSpacing: '0.03em',
                                     fontFamily: "'Montserrat', sans-serif"
                                 }}
                             >
-                                {service.description}
+                                {isMobile && service.description.length > 80
+                                    ? service.description.substring(0, 77) + "..."
+                                    : service.description}
                             </p>
                         </div>
 
-                        <div style={{
-                            position: 'absolute',
-                            bottom: '2rem',
-                            fontSize: '0.6rem',
-                            fontWeight: 700,
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.3em',
-                            color: 'var(--primary)',
-                            opacity: 0.3,
-                            zIndex: 3
-                        }}>
-                            Touch to Explore
-                        </div>
+                        {!isMobile && (
+                            <div style={{
+                                position: 'absolute',
+                                bottom: '2rem',
+                                fontSize: '0.6rem',
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.3em',
+                                color: 'var(--primary)',
+                                opacity: 0.3,
+                                zIndex: 3
+                            }}>
+                                Touch to Explore
+                            </div>
+                        )}
                     </div>
 
                     {/* BACK SIDE */}
@@ -236,22 +242,22 @@ const ServiceCard = ({ service, index }) => {
                             transform: 'rotateY(180deg)',
                             borderRadius: '16px',
                             overflow: 'hidden',
-                            border: '4px solid var(--primary)',
+                            border: '3px solid var(--primary)',
                             background: 'white'
                         }}
                     >
                         <img src={service.image} alt={service.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                        <div className="absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-8 text-center text-white backdrop-blur-md">
-                            <span style={{ fontSize: '0.6rem', letterSpacing: '0.4em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '1rem' }}>Our Work</span>
-                            <h3 className="text-3xl font-light mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{service.title}</h3>
-                            <div className="w-16 h-[1px] bg-[#e8d5b5] mb-6"></div>
+                        <div className="absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-4 md:p-8 text-center text-white backdrop-blur-md">
+                            <span style={{ fontSize: '0.5rem', letterSpacing: '0.4em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '0.5rem' }}>Our Work</span>
+                            <h3 className={isMobile ? "text-xl font-light mb-4" : "text-3xl font-light mb-6"} style={{ fontFamily: "'Cormorant Garamond', serif" }}>{service.title}</h3>
+                            <div className="w-12 h-[1px] bg-[#e8d5b5] mb-4"></div>
                             <button
                                 style={{
-                                    padding: '1rem 2rem',
+                                    padding: isMobile ? '0.5rem 1rem' : '1rem 2rem',
                                     border: '1px solid rgba(255,255,255,0.3)',
                                     background: 'transparent',
                                     color: 'white',
-                                    fontSize: '0.7rem',
+                                    fontSize: isMobile ? '0.5rem' : '0.7rem',
                                     fontWeight: 600,
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.2em',
@@ -314,7 +320,7 @@ const Services = () => {
 
     return (
         <div id="services" className="services-page">
-            <section className="section-cream pt-20 pb-20 md:pt-40 md:pb-32" style={{ position: 'relative', overflow: 'hidden' }}>
+            <section className="section-cream pt-10 pb-20 md:pt-20 md:pb-32" style={{ position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(26, 54, 32, 0.03) 0%, transparent 70%)', borderRadius: '50%' }}></div>
 
                 <div className="container">

@@ -45,8 +45,8 @@ const Gallery = () => {
     };
 
     return (
-        <section id="gallery" className="section-cream py-20 md:py-40" style={{
-            minHeight: '100vh',
+        <section id="gallery" className="section-cream pt-10 pb-0 md:py-40" style={{
+            minHeight: isMobile ? 'auto' : '100vh',
             background: '#f9f8f4'
         }}>
             <div className="container">
@@ -65,7 +65,7 @@ const Gallery = () => {
                 </div>
 
                 {/* RESPONSIVE GALLERY DISPLAY */}
-                <div style={{ padding: '2rem 0', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ padding: isMobile ? '1rem 0 0 0' : '2rem 0', position: 'relative', overflow: 'hidden' }}>
                     {isMobile ? (
                         /* MOBILE MARQUEE */
                         <div style={{

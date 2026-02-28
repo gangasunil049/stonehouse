@@ -18,8 +18,14 @@ const MagicStar = ({ style, delay }) => (
 );
 
 const Home = () => {
+    const [isMobile, setIsMobile] = React.useState(false);
+
     useEffect(() => {
         document.title = "Stonehouse Landscape | Planting Outdoor for Your Dream";
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
     const contactMethods = [
@@ -175,7 +181,7 @@ const Home = () => {
             {/* ULTRA PREMIUM CONTACT SECTION */}
             <section id="contact" style={{
                 background: 'linear-gradient(180deg, #1a3620 0%, #0d1a10 100%)',
-                padding: '10rem 0',
+                padding: isMobile ? '1rem 0 2rem 0' : '10rem 0',
                 color: 'white',
                 position: 'relative'
             }}>
@@ -204,7 +210,12 @@ const Home = () => {
                     </div>
 
                     {/* CONTACT CARDS — PREMIUM MINIMALISM */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '8rem' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(auto-fit, minmax(280px, 1fr))',
+                        gap: isMobile ? '0.75rem' : '2rem',
+                        marginBottom: isMobile ? '3rem' : '8rem'
+                    }}>
                         {contactMethods.map((method, i) => (
                             <motion.a
                                 key={i}
@@ -219,25 +230,26 @@ const Home = () => {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    padding: '4rem 2rem',
+                                    padding: isMobile ? '1.5rem 0.5rem' : '4rem 2rem',
                                     background: 'rgba(255,255,255,0.01)',
                                     border: '1px solid rgba(232, 213, 181, 0.1)',
                                     textDecoration: 'none',
                                     color: 'white',
-                                    borderRadius: '0px',
-                                    transition: 'all 0.4s ease'
+                                    borderRadius: '8px',
+                                    transition: 'all 0.4s ease',
+                                    textAlign: 'center'
                                 }}
-                                whileHover={{
+                                whileHover={!isMobile ? {
                                     background: 'rgba(232, 213, 181, 0.03)',
                                     borderColor: 'rgba(232, 213, 181, 0.3)',
                                     transform: 'translateY(-5px)'
-                                }}
+                                } : {}}
                             >
-                                <div style={{ color: '#e8d5b5', marginBottom: '1.5rem', opacity: 0.8 }}>
-                                    {method.icon}
+                                <div style={{ color: '#e8d5b5', marginBottom: isMobile ? '0.75rem' : '1.5rem', opacity: 0.8 }}>
+                                    {React.cloneElement(method.icon, { size: isMobile ? 20 : 28 })}
                                 </div>
-                                <p style={{ fontSize: '0.6rem', fontWeight: 600, letterSpacing: '0.3rem', textTransform: 'uppercase', color: '#e8d5b5', margin: '0 0 1rem', opacity: 0.6 }}>{method.title}</p>
-                                <p style={{ fontSize: '1rem', fontWeight: 300, margin: 0, fontFamily: "'Montserrat', sans-serif" }}>{method.value}</p>
+                                <p style={{ fontSize: isMobile ? '0.5rem' : '0.6rem', fontWeight: 600, letterSpacing: isMobile ? '0.1rem' : '0.3rem', textTransform: 'uppercase', color: '#e8d5b5', margin: '0 0 0.5rem', opacity: 0.6 }}>{isMobile ? method.title.split(' ')[0] : method.title}</p>
+                                <p style={{ fontSize: isMobile ? '0.65rem' : '1rem', fontWeight: 300, margin: 0, fontFamily: "'Montserrat', sans-serif" }}>{isMobile && method.value.includes('@') ? '@thestonehouse...' : method.value}</p>
                             </motion.a>
                         ))}
                     </div>
@@ -254,7 +266,7 @@ const Home = () => {
                             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
                         >
                             <div style={{
-                                padding: '2rem',
+                                padding: isMobile ? '1rem' : '2rem',
                                 background: 'rgba(255,255,255,0.02)',
                                 border: '1px solid rgba(232, 213, 181, 0.1)',
                                 position: 'relative'
@@ -267,8 +279,8 @@ const Home = () => {
                                     </div>
                                 </div>
 
-                                {/* HIGHLY COMPACT MAP CONTAINER */}
-                                <div className="relative group overflow-hidden" style={{ height: '300px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                {/* ULTRA COMPACT MAP CONTAINER */}
+                                <div className="relative group overflow-hidden" style={{ height: isMobile ? '150px' : '300px', border: '1px solid rgba(255,255,255,0.05)' }}>
                                     <iframe
                                         src="https://www.google.com/maps?q=stone+house+manthamaruthi,ranni,kerala,689676&output=embed"
                                         width="100%"

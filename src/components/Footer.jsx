@@ -3,15 +3,24 @@ import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react'
 import { motion } from 'framer-motion';
 
 const Footer = () => {
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     return (
-        <footer className="footer-light bg-[#f9f8f4]" style={{ padding: '8rem 0 4rem', color: '#1a1a1a' }}>
+        <footer className="footer-light bg-[#f9f8f4]" style={{ padding: isMobile ? '3rem 0 2rem' : '8rem 0 4rem', color: '#1a1a1a' }}>
             <div className="container">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-10%" }}
                     transition={{ duration: 1, ease: "easeOut", staggerChildren: 0.2 }}
-                    style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '6rem', marginBottom: '6rem' }}
+                    style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: isMobile ? '2rem' : '6rem', marginBottom: isMobile ? '2rem' : '6rem' }}
                 >
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -19,11 +28,25 @@ const Footer = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                     >
-                        <div className="circular-logo-container mb-8" style={{ width: '80px', height: '80px', background: 'white', border: '1px solid rgba(0,0,0,0.1)' }}>
-                            <img src="/logo.jpeg" alt="Stonehouse Footer Logo" className="circular-logo-img" />
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: '1.5rem',
+                            marginBottom: '2rem'
+                        }}>
+                            <div className="circular-logo-container" style={{
+                                width: isMobile ? '60px' : '80px',
+                                height: isMobile ? '60px' : '80px',
+                                background: 'white',
+                                border: '1px solid rgba(0,0,0,0.1)',
+                                marginBottom: '0'
+                            }}>
+                                <img src="/logo.jpeg" alt="Stonehouse Footer Logo" className="circular-logo-img" />
+                            </div>
+                            <h3 className={isMobile ? "text-xl font-black mb-0 text-black" : "text-2xl font-black mb-0 text-black"}>STONE HOUSE</h3>
                         </div>
-                        <h3 className="text-2xl font-black mb-6 text-black">STONEHOUSE LANDSCAPE</h3>
-                        <p className="leading-relaxed mb-8 max-w-sm" style={{ color: 'rgba(0,0,0,0.7)' }}>
+                        <p className="leading-relaxed mb-8 max-w-sm" style={{ color: 'rgba(0,0,0,0.7)', fontSize: isMobile ? '0.8rem' : '1rem' }}>
                             Planting outdoor dreams and crafting natural stone legacies that last for generations.
                         </p>
                         <div style={{ display: 'flex', gap: '1.5rem' }}>
@@ -44,7 +67,7 @@ const Footer = () => {
                     className="pt-8 text-center"
                 >
                     <p style={{ fontSize: '12px', color: 'rgba(0,0,0,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
-                        &copy; {new Date().getFullYear()} Stonehouse Landscape. All rights reserved.
+                        &copy; {new Date().getFullYear()} Stone House. All rights reserved.
                     </p>
                 </motion.div>
             </div>

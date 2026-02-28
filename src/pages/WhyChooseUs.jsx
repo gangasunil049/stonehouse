@@ -3,35 +3,44 @@ import { motion } from 'framer-motion';
 import { ShieldCheck, HeartPulse, Award, Clock } from 'lucide-react';
 
 const WhyChooseUs = () => {
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const reasons = [
         {
             title: "Trust",
             description: "Built on transparency, we deliver exactly what we promise, on time and within budget.",
-            icon: <ShieldCheck size={32} />
+            icon: <ShieldCheck size={isMobile ? 24 : 32} />
         },
         {
             title: "Care",
             description: "We treat every garden as if it were our own, with meticulous attention to detail.",
-            icon: <HeartPulse size={32} />
+            icon: <HeartPulse size={isMobile ? 24 : 32} />
         },
         {
             title: "Quality",
             description: "Sourcing only the finest natural stones and resilient plants for lasting beauty.",
-            icon: <Award size={32} />
+            icon: <Award size={isMobile ? 24 : 32} />
         },
         {
             title: "Experience",
             description: "Years of setting the bar high in landscape designing and paving across Kerala.",
-            icon: <Clock size={32} />
+            icon: <Clock size={isMobile ? 24 : 32} />
         }
     ];
 
     return (
-        <section id="why-choose-us" className="section-cream py-32">
+        <section id="why-choose-us" className="section-cream pt-10 pb-10 md:pt-16">
             <div className="container">
                 <div className="why-choose-grid">
                     <motion.div
-                        initial={{ opacity: 0, x: typeof window !== 'undefined' && window.innerWidth <= 768 ? -20 : -80, filter: 'blur(10px)' }}
+                        initial={{ opacity: 0, x: isMobile ? -20 : -80, filter: 'blur(10px)' }}
                         whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                         viewport={{ once: true, margin: "-10%" }}
                         transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1] }}
@@ -48,16 +57,16 @@ const WhyChooseUs = () => {
                         {reasons.map((reason, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, x: typeof window !== 'undefined' && window.innerWidth <= 768 ? 20 : 80, filter: 'blur(10px)' }}
+                                initial={{ opacity: 0, x: isMobile ? 20 : 80, filter: 'blur(10px)' }}
                                 whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                                 viewport={{ once: true, margin: "-10%" }}
                                 transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.3 }}
                                 className="hover-dark-green cursor-pointer"
-                                style={{ background: 'white', padding: '2.5rem 2rem', borderRadius: '12px' }}
+                                style={{ background: 'white', padding: isMobile ? '1.5rem 1rem' : '2.5rem 2rem', borderRadius: '12px' }}
                             >
-                                <div className="text-primary mb-6">{reason.icon}</div>
-                                <h3 className="text-xl font-black mb-3">{reason.title}</h3>
-                                <p className="text-muted text-sm leading-relaxed">{reason.description}</p>
+                                <div className="text-primary mb-4">{reason.icon}</div>
+                                <h3 className={isMobile ? "text-lg font-black mb-2" : "text-xl font-black mb-3"}>{reason.title}</h3>
+                                <p className="text-muted leading-relaxed" style={{ fontSize: isMobile ? '0.7rem' : '0.875rem' }}>{reason.description}</p>
                             </motion.div>
                         ))}
                     </div>

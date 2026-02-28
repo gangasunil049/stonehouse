@@ -67,9 +67,10 @@ const Header = () => {
                         }}>
                             <img src="/logo.jpeg" alt="Logo" className="circular-logo-img" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         </div>
-                        <span className="text-lg md:text-xl font-black uppercase tracking-widest hidden sm:inline-block mt-2" style={{
+                        <span className="text-sm sm:text-lg md:text-xl font-black uppercase tracking-widest inline-block" style={{
                             color: isScrolled ? 'var(--primary)' : 'white',
-                            fontWeight: 900 // Ensure maximum bold
+                            fontWeight: 900,
+                            lineHeight: 1
                         }}>
                             STONE HOUSE
                         </span>
@@ -92,7 +93,7 @@ const Header = () => {
                         ))}
                     </nav>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} className="md:gap-4">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }} className="md:gap-4">
                         <a href="#contact" className="cta-btn cta-primary no-underline header-quote-btn">
                             <Phone size={12} className="quote-phone-icon" /> <span style={{ fontWeight: 600 }}>Get Quote</span>
                         </a>
