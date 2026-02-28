@@ -243,45 +243,12 @@ const Home = () => {
                     </div>
 
                     {/* FORM + MAP — CONSOLIDATED SPLIT */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '4rem' }} className="lg:grid-cols-2 grid-cols-1">
-                        {/* LEFT: LUXURY FORM */}
+                    {/* FORM + MAP — CONSOLIDATED SPLIT */}
+                    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+                        {/* MAP ONLY */}
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <h3 className="text-2xl mb-12 text-[#e8d5b5]" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic' }}>Message Us</h3>
-                            <form style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2.5rem' }} className="md:grid-cols-2 grid-cols-1">
-                                    <input type="text" placeholder="Your Name" style={{
-                                        width: '100%', padding: '0.5rem 0', background: 'transparent', border: 'none', borderBottom: '1px solid rgba(232, 213, 181, 0.2)', color: 'white', fontSize: '0.9rem', outline: 'none', fontFamily: "'Montserrat', sans-serif"
-                                    }} className="focus:border-[#e8d5b5] transition-colors" />
-                                    <input type="email" placeholder="Email Address" style={{
-                                        width: '100%', padding: '0.5rem 0', background: 'transparent', border: 'none', borderBottom: '1px solid rgba(232, 213, 181, 0.2)', color: 'white', fontSize: '0.9rem', outline: 'none', fontFamily: "'Montserrat', sans-serif"
-                                    }} className="focus:border-[#e8d5b5] transition-colors" />
-                                </div>
-                                <textarea rows="3" placeholder="How can we help?" style={{
-                                    width: '100%', padding: '0.5rem 0', background: 'transparent', border: 'none', borderBottom: '1px solid rgba(232, 213, 181, 0.2)', color: 'white', fontSize: '0.9rem', outline: 'none', fontFamily: "'Montserrat', sans-serif", resize: 'none'
-                                }} className="focus:border-[#e8d5b5] transition-colors"></textarea>
-
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    type="submit"
-                                    style={{
-                                        padding: '1.2rem', background: '#e8d5b5', color: '#1a3620', border: 'none', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.3em', textTransform: 'uppercase'
-                                    }}
-                                >
-                                    Launch Inquiry
-                                </motion.button>
-                            </form>
-                        </motion.div>
-
-                        {/* RIGHT: COMPACT REFINED MAP */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
@@ -301,7 +268,7 @@ const Home = () => {
                                 </div>
 
                                 {/* HIGHLY COMPACT MAP CONTAINER */}
-                                <div className="relative group overflow-hidden" style={{ height: '180px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                <div className="relative group overflow-hidden" style={{ height: '300px', border: '1px solid rgba(255,255,255,0.05)' }}>
                                     <iframe
                                         src="https://www.google.com/maps?q=stone+house+manthamaruthi,ranni,kerala,689676&output=embed"
                                         width="100%"

@@ -8,6 +8,14 @@ import {
 const ServiceCard = ({ service, index }) => {
     const cardRef = useRef(null);
     const [isFlipped, setIsFlipped] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // MOUSE TRACKING FOR 3D TILT
     const x = useMotionValue(0);
@@ -25,7 +33,7 @@ const ServiceCard = ({ service, index }) => {
     const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-10, 10]);
 
     const handleMouseMove = (e) => {
-        if (!cardRef.current || isFlipped) return;
+        if (!cardRef.current || isFlipped || isMobile) return;
 
         const rect = cardRef.current.getBoundingClientRect();
         const width = rect.width;
@@ -62,7 +70,8 @@ const ServiceCard = ({ service, index }) => {
             className="flip-card-container cursor-pointer"
             style={{
                 height: '420px',
-                perspective: '2000px'
+                perspective: isMobile ? 'none' : '2000px',
+                WebkitFontSmoothing: 'antialiased'
             }}
         >
             <motion.div
@@ -72,8 +81,8 @@ const ServiceCard = ({ service, index }) => {
                     height: '100%',
                     position: 'relative',
                     transformStyle: 'preserve-3d',
-                    rotateX: isFlipped ? 0 : rotateX,
-                    rotateY: isFlipped ? 0 : rotateY // Tilt rotateY
+                    rotateX: (isMobile || isFlipped) ? 0 : rotateX,
+                    rotateY: (isMobile || isFlipped) ? 0 : rotateY // Tilt rotateY
                 }}
             >
                 {/* FLIP WRAPPER - This handles the 180deg flip separately to avoid conflicts */}
@@ -99,6 +108,8 @@ const ServiceCard = ({ service, index }) => {
                             position: 'absolute',
                             inset: 0,
                             backfaceVisibility: 'hidden',
+                            WebkitBackfaceVisibility: 'hidden',
+                            transform: 'translateZ(0)',
                             borderRadius: '16px',
                             border: '1px solid rgba(232, 213, 181, 0.2)',
                             background: 'linear-gradient(135deg, #ffffff 0%, #f4f7f2 100%)',
@@ -120,7 +131,7 @@ const ServiceCard = ({ service, index }) => {
                                 pointerEvents: 'none',
                                 background: `radial-gradient(circle at ${shinePos.x}% ${shinePos.y}%, rgba(232, 213, 181, 0.2) 0%, transparent 60%)`,
                                 zIndex: 2,
-                                opacity: isFlipped ? 0 : 1,
+                                opacity: (isMobile || isFlipped) ? 0 : 1,
                                 transition: 'opacity 0.3s'
                             }}
                         />
@@ -326,11 +337,7 @@ const Services = () => {
                         />
                     </div>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
-                        gap: '3rem'
-                    }}>
+                    <div className="services-grid">
                         {services.map((service, index) => (
                             <ServiceCard key={index} service={service} index={index} />
                         ))}

@@ -93,14 +93,8 @@ const Header = () => {
                     </nav>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} className="md:gap-4">
-                        <a href="#contact" className="cta-btn cta-primary no-underline hidden lg:flex" style={{
-                            padding: '0.6rem 1rem',
-                            fontSize: '10px',
-                            alignItems: 'center',
-                            gap: '0.4rem',
-                            whiteSpace: 'nowrap'
-                        }}>
-                            <Phone size={12} /> <span style={{ fontWeight: 600 }}>Get Quote</span>
+                        <a href="#contact" className="cta-btn cta-primary no-underline header-quote-btn">
+                            <Phone size={12} className="quote-phone-icon" /> <span style={{ fontWeight: 600 }}>Get Quote</span>
                         </a>
 
                         {/* Mobile Menu Wrapper */}

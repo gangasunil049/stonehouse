@@ -32,6 +32,15 @@ const About = () => {
         document.title = "About Us | Stonehouse Landscape";
     }, []);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     return (
         <div id="about" className="about-page" style={{ backgroundColor: 'var(--bg-white)', width: '100%', overflow: 'hidden' }}>
 
@@ -39,25 +48,20 @@ const About = () => {
             <section style={{ position: 'relative', marginTop: '6rem', padding: '12rem 0 8rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', overflow: 'hidden' }}>
 
                 {/* PUZZLE ANIMATION BACKGROUND - CONSTRAINED RECTANGLE */}
-                <div style={{
+                <div className="about-puzzle-container" style={{
                     position: 'absolute',
                     inset: 0,
                     zIndex: 0,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '2rem'
+                    justifyContent: 'center'
                 }}>
-                    <div style={{
+                    <div className="about-puzzle-grid" style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(5, 1fr)',
                         gridTemplateRows: 'repeat(5, 1fr)',
-                        width: '90%',
-                        maxWidth: '1200px',
-                        aspectRatio: '16/9',
                         backgroundColor: 'var(--bg-white)',
                         overflow: 'hidden',
-                        borderRadius: '24px',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.1)'
                     }}>
                         {Array.from({ length: 25 }).map((_, i) => {
@@ -256,9 +260,11 @@ const About = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', fontStyle: 'italic', color: 'var(--text-black)', lineHeight: 1.4, fontWeight: 400, marginBottom: '2rem' }}
+                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontStyle: 'italic', color: 'var(--text-black)', lineHeight: 1.4, fontWeight: 400, marginBottom: '2rem' }}
                         >
-                            "Our mission is to seamlessly blend architectural elegance with the raw beauty of nature, constructing spaces that inspire peace and endure through time."
+                            {isMobile
+                                ? '"Our mission is to blend architectural elegance with nature, constructing spaces that inspire peace."'
+                                : '"Our mission is to seamlessly blend architectural elegance with the raw beauty of nature, constructing spaces that inspire peace and endure through time."'}
                         </motion.h3>
 
                         <motion.div

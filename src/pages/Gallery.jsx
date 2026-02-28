@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { X, Maximize2 } from 'lucide-react';
 
 const Gallery = () => {
@@ -7,6 +7,19 @@ const Gallery = () => {
 
     useEffect(() => {
         document.title = "Project Diary | Stonehouse Landscape";
+    }, []);
+
+    useEffect(() => {
+        document.title = "Project Diary | Stonehouse Landscape";
+    }, []);
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
     const galleryImages = [
@@ -51,77 +64,124 @@ const Gallery = () => {
                     </motion.h2>
                 </div>
 
-                {/* STAGGERED GRID ANIMATION */}
-                <div style={{ padding: '2rem 0' }}>
-                    <div
-                        style={{
+                {/* RESPONSIVE GALLERY DISPLAY */}
+                <div style={{ padding: '2rem 0', position: 'relative', overflow: 'hidden' }}>
+                    {isMobile ? (
+                        /* MOBILE MARQUEE */
+                        <div style={{
+                            display: 'flex',
+                            width: 'fit-content',
+                            overflow: 'hidden'
+                        }}>
+                            <style>{`
+                                @keyframes slideMarquee {
+                                    0% { transform: translateX(0); }
+                                    100% { transform: translateX(-2736px); }
+                                }
+                                .marquee-track {
+                                    display: flex;
+                                    gap: 1.5rem;
+                                    padding-right: 1.5rem;
+                                    animation: slideMarquee 30s linear infinite;
+                                    will-change: transform;
+                                }
+                                /* Pause on touch (mobile) and hover (desktop fallback) */
+                                .marquee-track:active, .marquee-track:hover {
+                                    animation-play-state: paused !important;
+                                    -webkit-animation-play-state: paused !important;
+                                }
+                            `}</style>
+                            <div className="marquee-track">
+                                {/* Double array for seamless loop */}
+                                {[...galleryImages, ...galleryImages].map((img, index) => (
+                                    <div
+                                        key={index}
+                                        className="cursor-pointer"
+                                        onClick={() => openLightbox(img)}
+                                        style={{ width: '280px', flexShrink: 0 }}
+                                    >
+                                        <div style={{
+                                            height: '350px',
+                                            width: '100%',
+                                            overflow: 'hidden',
+                                            boxShadow: '0 15px 30px rgba(0,0,0,0.06)',
+                                            background: '#fff',
+                                            padding: '8px',
+                                            borderRadius: '8px'
+                                        }}>
+                                            <img
+                                                src={img.src}
+                                                alt={img.title}
+                                                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        /* DESKTOP STAGGERED GRID */
+                        <div style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
                             gap: '2rem',
                             alignItems: 'center'
-                        }}
-                    >
-                        {galleryImages.map((img, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-10%" }}
-                                transition={{ duration: 0.8, ease: "easeOut", delay: (index % 3) * 0.2 }}
-                                whileHover={{ scale: 1.02, y: -10 }}
-                                className="group cursor-pointer flex flex-col"
-                                onClick={() => openLightbox(img)}
-                                style={{
-                                    width: '100%',
-                                    perspective: '1000px'
-                                }}
-                            >
-                                <div style={{
-                                    height: img.size,
-                                    width: '100%',
-                                    overflow: 'hidden',
-                                    position: 'relative',
-                                    boxShadow: '0 30px 60px rgba(0,0,0,0.06)',
-                                    background: '#fff',
-                                    padding: '12px'
-                                }}>
-                                    <motion.img
-                                        whileHover={{ scale: 1.1, rotate: 1.5 }}
-                                        transition={{ duration: 0.8, ease: "easeOut" }}
-                                        src={img.src}
-                                        alt={img.title}
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover'
-                                        }}
-                                    />
-
-                                    {/* MINIMAL OVERLAY */}
+                        }}>
+                            {galleryImages.map((img, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-10%" }}
+                                    transition={{ duration: 0.8, ease: "easeOut", delay: (index % 3) * 0.2 }}
+                                    whileHover={{ scale: 1.02, y: -10 }}
+                                    className="group cursor-pointer flex flex-col"
+                                    onClick={() => openLightbox(img)}
+                                    style={{ width: '100%', perspective: '1000px' }}
+                                >
                                     <div style={{
-                                        position: 'absolute',
-                                        inset: 0,
-                                        background: 'rgba(26, 54, 32, 0.3)',
-                                        opacity: 0,
-                                        transition: 'opacity 0.6s ease',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }} className="group-hover:opacity-100">
+                                        height: img.size,
+                                        width: '100%',
+                                        overflow: 'hidden',
+                                        position: 'relative',
+                                        boxShadow: '0 30px 60px rgba(0,0,0,0.06)',
+                                        background: '#fff',
+                                        padding: '12px'
+                                    }}>
+                                        <motion.img
+                                            whileHover={{ scale: 1.1, rotate: 1.5 }}
+                                            transition={{ duration: 0.8, ease: "easeOut" }}
+                                            src={img.src}
+                                            alt={img.title}
+                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                        />
+
+                                        {/* MINIMAL OVERLAY */}
                                         <div style={{
-                                            padding: '1rem',
-                                            background: '#fff',
-                                            borderRadius: '50%',
-                                            transform: 'scale(0.8)',
-                                            transition: 'transform 0.4s ease'
-                                        }} className="group-hover:scale-100">
-                                            <Maximize2 size={24} className="text-primary" />
+                                            position: 'absolute',
+                                            inset: 0,
+                                            background: 'rgba(26, 54, 32, 0.3)',
+                                            opacity: 0,
+                                            transition: 'opacity 0.6s ease',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }} className="group-hover:opacity-100">
+                                            <div style={{
+                                                padding: '1rem',
+                                                background: '#fff',
+                                                borderRadius: '50%',
+                                                transform: 'scale(0.8)',
+                                                transition: 'transform 0.4s ease'
+                                            }} className="group-hover:scale-100">
+                                                <Maximize2 size={24} className="text-primary" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
 

@@ -25,9 +25,9 @@ export const StaggeredMenu = ({
     const panelRef = useRef(null);
     const preLayersRef = useRef(null);
     const preLayerElsRef = useRef([]);
-    const plusHRef = useRef(null);
-    const plusVRef = useRef(null);
-    const iconRef = useRef(null);
+    const line1Ref = useRef(null);
+    const line2Ref = useRef(null);
+    const line3Ref = useRef(null);
     const textInnerRef = useRef(null);
     const textWrapRef = useRef(null);
     const [textLines, setTextLines] = useState(['Menu', 'Close']);
@@ -45,11 +45,11 @@ export const StaggeredMenu = ({
         const ctx = gsap.context(() => {
             const panel = panelRef.current;
             const preContainer = preLayersRef.current;
-            const plusH = plusHRef.current;
-            const plusV = plusVRef.current;
-            const icon = iconRef.current;
+            const l1 = line1Ref.current;
+            const l2 = line2Ref.current;
+            const l3 = line3Ref.current;
             const textInner = textInnerRef.current;
-            if (!panel || !plusH || !plusV || !icon || !textInner) return;
+            if (!panel || !l1 || !l2 || !l3 || !textInner) return;
 
             let preLayers = [];
             if (preContainer) {
@@ -59,9 +59,9 @@ export const StaggeredMenu = ({
 
             const offscreen = position === 'left' ? -100 : 100;
             gsap.set([panel, ...preLayers], { xPercent: offscreen });
-            gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
-            gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
-            gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
+            gsap.set(l1, { transformOrigin: '50% 50%', rotate: 0, y: 0 });
+            gsap.set(l2, { opacity: 1 });
+            gsap.set(l3, { transformOrigin: '50% 50%', rotate: 0, y: 0 });
             gsap.set(textInner, { yPercent: 0 });
             if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
         });
@@ -229,13 +229,19 @@ export const StaggeredMenu = ({
     }, [position]);
 
     const animateIcon = useCallback(opening => {
-        const icon = iconRef.current;
-        if (!icon) return;
-        spinTweenRef.current?.kill();
+        const l1 = line1Ref.current;
+        const l2 = line2Ref.current;
+        const l3 = line3Ref.current;
+        if (!l1 || !l2 || !l3) return;
+
         if (opening) {
-            spinTweenRef.current = gsap.to(icon, { rotate: 225, duration: 0.8, ease: 'power4.out', overwrite: 'auto' });
+            gsap.to(l1, { y: 9, rotate: 45, duration: 0.8, ease: 'power4.out', overwrite: 'auto' });
+            gsap.to(l2, { opacity: 0, duration: 0.3, ease: 'power4.out', overwrite: 'auto' });
+            gsap.to(l3, { y: -9, rotate: -45, duration: 0.8, ease: 'power4.out', overwrite: 'auto' });
         } else {
-            spinTweenRef.current = gsap.to(icon, { rotate: 0, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' });
+            gsap.to(l1, { y: 0, rotate: 0, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' });
+            gsap.to(l2, { opacity: 1, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' });
+            gsap.to(l3, { y: 0, rotate: 0, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' });
         }
     }, []);
 
@@ -406,9 +412,10 @@ export const StaggeredMenu = ({
                             ))}
                         </span>
                     </span>
-                    <span ref={iconRef} className="sm-icon" aria-hidden="true">
-                        <span ref={plusHRef} className="sm-icon-line" />
-                        <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+                    <span className="sm-icon" aria-hidden="true" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '20px', width: '24px' }}>
+                        <span ref={line1Ref} style={{ width: '100%', height: '2px', backgroundColor: 'currentColor', transformOrigin: 'center' }} />
+                        <span ref={line2Ref} style={{ width: '100%', height: '2px', backgroundColor: 'currentColor', transformOrigin: 'center' }} />
+                        <span ref={line3Ref} style={{ width: '100%', height: '2px', backgroundColor: 'currentColor', transformOrigin: 'center' }} />
                     </span>
                 </button>
             </header>

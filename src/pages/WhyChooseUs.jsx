@@ -29,7 +29,7 @@ const WhyChooseUs = () => {
     return (
         <section id="why-choose-us" className="section-cream py-32">
             <div className="container">
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6rem', alignItems: 'center' }} className="md:grid-cols-2 grid-cols-1">
+                <div className="why-choose-grid">
                     <motion.div
                         initial={{ opacity: 0, x: -80, filter: 'blur(10px)' }}
                         whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
@@ -44,7 +44,7 @@ const WhyChooseUs = () => {
                         </p>
                     </motion.div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                    <div className="why-choose-cards-grid">
                         {reasons.map((reason, index) => (
                             <motion.div
                                 key={index}
