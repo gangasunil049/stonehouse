@@ -24,14 +24,14 @@ const Gallery = () => {
 
     const galleryImages = [
         { src: "/banglore stone.jpeg", title: "Bangalore Stone Pathway", span: "col-span-12 md:col-span-4", size: "600px" },
-        { src: "/tandur stone.jpeg", title: "Tandur Floor Detailing", span: "col-span-12 md:col-span-4", size: "400px" },
-        { src: "/kadappa stone.jpeg", title: "Kadappa Black Entry", span: "col-span-12 md:col-span-4", size: "500px" },
-        { src: "/lime stone.jpeg", title: "Classic Lime Accents", span: "col-span-12 md:col-span-4", size: "500px" },
-        { src: "/pebbles.jpeg", title: "Zen Pebble Arrangement", span: "col-span-12 md:col-span-4", size: "600px" },
         { src: "/stone cladding.jpeg", title: "Architectural Cladding", span: "col-span-12 md:col-span-4", size: "400px" },
         { src: "/landscaping 1.jpeg", title: "Modern Estate Design", span: "col-span-12 md:col-span-4", size: "450px" },
-        { src: "/landscaping 2.jpeg", title: "Terrace Greenery", span: "col-span-12 md:col-span-4", size: "550px" },
-        { src: "/artificial grass.jpeg", title: "Lush Synthetic Lawn", span: "col-span-12 md:col-span-4", size: "450px" }
+        { src: "/gallery1.jpeg", title: "Luxury Estate Finishing", span: "col-span-12 md:col-span-4", size: "550px" },
+        { src: "/gallery2.jpeg", title: "Modern Stone Integration", span: "col-span-12 md:col-span-4", size: "450px" },
+        { src: "/gallery3.jpeg", title: "Premium Landscape Work", span: "col-span-12 md:col-span-4", size: "500px" },
+        { src: "/gallery4.jpeg", title: "Custom Exterior Crafting", span: "col-span-12 md:col-span-4", size: "600px" },
+        { src: "/banglore stone 1.jpeg", title: "Contemporary Bangalore Stone", span: "col-span-12 md:col-span-4", size: "500px" },
+        { src: "/lime stone 1.jpeg", title: "Textured Lime Stone Wall", span: "col-span-12 md:col-span-4", size: "600px" }
     ];
 
     const openLightbox = (img) => {
