@@ -66,6 +66,20 @@ const Footer = () => {
                     style={{ borderTop: '1px solid rgba(0,0,0,0.1)' }}
                     className="pt-8 text-center"
                 >
+                    <p style={{ fontSize: '12px', color: 'rgba(0,0,0,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '0.5rem' }}>
+                        Meet The Developers
+                    </p>
+                    <a
+                        href="https://www.instagram.com/intellex.web?igsh=MXc4Z2Uwd243OHpqdA%3D%3D&utm_source=qr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '12px', color: 'rgba(0,0,0,0.6)', textDecoration: 'none', fontWeight: 600, marginBottom: '1rem', transition: 'color 0.2s' }}
+                        onMouseEnter={e => e.currentTarget.style.color = '#E1306C'}
+                        onMouseLeave={e => e.currentTarget.style.color = 'rgba(0,0,0,0.6)'}
+                    >
+                        <Instagram size={14} />
+                        @intellex.web
+                    </a>
                     <p style={{ fontSize: '12px', color: 'rgba(0,0,0,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
                         &copy; {new Date().getFullYear()} Stone House. All rights reserved.
                     </p>

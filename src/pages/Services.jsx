@@ -66,12 +66,12 @@ const ServiceCard = ({ service, index }) => {
         <div
             className="stone-card group"
             style={{
-                borderRadius: '32px',
+                borderRadius: isMobile ? '16px' : '32px',
                 border: '1px solid rgba(0, 0, 0, 0.05)',
                 background: '#ffffff',
                 display: 'flex',
                 flexDirection: 'column',
-                padding: '1.5rem',
+                padding: isMobile ? '0.8rem' : '1.5rem',
                 textAlign: 'left',
                 boxShadow: '0 20px 60px rgba(0,0,0,0.03)',
                 overflow: 'hidden',
@@ -79,16 +79,18 @@ const ServiceCard = ({ service, index }) => {
                 width: '100%'
             }}
         >
-            <div style={{ width: '100%', height: '200px', borderRadius: '24px', overflow: 'hidden', marginBottom: '1.5rem' }}>
+            <div style={{ width: '100%', height: isMobile ? '110px' : '200px', borderRadius: isMobile ? '10px' : '24px', overflow: 'hidden', marginBottom: isMobile ? '0.6rem' : '1.5rem' }}>
                 <img src={service.image} alt={service.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }} className="group-hover:scale-110" />
             </div>
-            <div style={{ padding: '0 0.5rem' }}>
-                <h3 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '1.3rem', color: 'var(--primary-deep)', marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>
+            <div style={{ padding: isMobile ? '0' : '0 0.5rem' }}>
+                <h3 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: isMobile ? '0.8rem' : '1.3rem', color: 'var(--primary-deep)', marginBottom: isMobile ? '0' : '0.75rem', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
                     {service.title}
                 </h3>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 400, lineHeight: 1.6, fontFamily: "'Outfit', sans-serif" }}>
-                    {isMobile && service.description.length > 80 ? service.description.substring(0, 80) + '…' : service.description}
-                </p>
+                {!isMobile && (
+                    <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 400, lineHeight: 1.6, fontFamily: "'Outfit', sans-serif" }}>
+                        {service.description}
+                    </p>
+                )}
             </div>
         </div>
     );

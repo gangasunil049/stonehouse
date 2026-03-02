@@ -120,7 +120,7 @@ section {
   font-weight: 500;
   letter-spacing: 0.15em;
   text-decoration: none;
-  color: var(--text-black) !important;
+  color: var(--text-black);
   transition: all 0.4s ease;
   position: relative;
   padding: 5px 0;
@@ -144,24 +144,33 @@ section {
 
 .header-main {
   position: fixed;
-  top: 1rem;
+  top: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 4rem);
   max-width: 1400px;
   z-index: 1000;
-  border-radius: 999px;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  /* Transparent by default */
+  border: none;
+  /* No border by default */
+  border-radius: 0;
+  /* No border-radius by default */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .header-scrolled {
   background: rgba(255, 255, 255, 0.7);
+  /* 70% opacity box when scrolling */
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   padding: 0.8rem 0;
   border-radius: 999px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  /* This gives the curved ends to the box */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .header-scrolled .nav-link,
@@ -182,8 +191,8 @@ section {
 
 .header-transparent {
   background: transparent;
-  padding: 1rem 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.2rem 0;
+  border: none;
 }
 
 /* Hero Section Redesign: Full Background Layout */
@@ -454,8 +463,8 @@ section {
 
 @media (max-width: 768px) {
   .services-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 }
 
@@ -1243,29 +1252,6 @@ section {
 
   .md\:pb-32 {
     padding-bottom: 8rem !important;
-  }
-
-  /* Mobile header: always transparent, no pill background */
-  .header-main,
-  .header-scrolled,
-  .header-transparent {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0.75rem 0 !important;
-    width: calc(100% - 2rem) !important;
-  }
-
-  /* Keep logo text and spans readable on mobile */
-  .header-scrolled .nav-link,
-  .header-scrolled span {
-    color: white !important;
-  }
-
-  .header-scrolled .circular-logo-container {
-    border-color: white !important;
   }
 
   /* Hamburger lines — force visibility */

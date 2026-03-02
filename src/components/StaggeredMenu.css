@@ -219,12 +219,22 @@
     right: 0;
 }
 
-/* Adjust sizes for mobile and typical side panel width */
-@media (min-width: 768px) {
+/* Mobile: hamburger always visible */
+@media (max-width: 767px) {
 
-    .staggered-menu-wrapper.fixed-wrapper .staggered-menu-panel,
-    .staggered-menu-wrapper.fixed-wrapper .sm-prelayer {
-        width: 45vw;
-        max-width: 600px;
+    .staggered-menu-header {
+        padding: 0.9rem 1.2rem;
+        justify-content: flex-end;
+        /* push button to right */
+    }
+
+    .sm-logo {
+        display: none;
+        /* logo is in our own mobile header */
+    }
+
+    .sm-toggle {
+        color: white !important;
+        filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.7));
     }
 }
