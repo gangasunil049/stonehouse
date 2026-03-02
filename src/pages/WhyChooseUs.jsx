@@ -45,7 +45,7 @@ const WhyChooseUs = () => {
                         viewport={{ once: true, margin: "-10%" }}
                         transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1] }}
                     >
-                        <h2 className="mb-6 leading-tight" style={{ fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontFamily: "'Cormorant Garamond', serif", fontWeight: 500, color: 'var(--text-black)' }}>
+                        <h2 className="mb-6 leading-tight" style={{ fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontFamily: "'Outfit', sans-serif", fontWeight: 700, color: 'var(--text-black)', letterSpacing: '-0.02em' }}>
                             Why <span className="text-primary" style={{ fontStyle: 'italic' }}>Choose Us.</span>
                         </h2>
                         <p className="text-lg text-muted leading-relaxed mb-8" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: '0.05em' }}>
@@ -62,10 +62,10 @@ const WhyChooseUs = () => {
                                 viewport={{ once: true, margin: "-10%" }}
                                 transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.3 }}
                                 className="hover-dark-green cursor-pointer"
-                                style={{ background: 'white', padding: isMobile ? '1.5rem 1rem' : '2.5rem 2rem', borderRadius: '12px' }}
+                                style={{ background: 'white', padding: isMobile ? '1.5rem 1rem' : '2.5rem 2rem', borderRadius: 'var(--radius-md)' }}
                             >
                                 <div className="text-primary mb-4">{reason.icon}</div>
-                                <h3 className={isMobile ? "text-lg font-black mb-2" : "text-xl font-black mb-3"}>{reason.title}</h3>
+                                <h3 className={isMobile ? "text-lg font-bold mb-2" : "text-xl font-bold mb-3"} style={{ fontFamily: "'Outfit', sans-serif" }}>{reason.title}</h3>
                                 <p className="text-muted leading-relaxed" style={{ fontSize: isMobile ? '0.7rem' : '0.875rem' }}>{reason.description}</p>
                             </motion.div>
                         ))}

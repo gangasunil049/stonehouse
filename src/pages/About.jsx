@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useAnimation, useInView } from 'framer-motion';
 
 const Counter = ({ end, suffix = "", duration = 2.5 }) => {
     const [count, setCount] = useState(0);
@@ -33,6 +33,10 @@ const About = () => {
     }, []);
 
     const [isMobile, setIsMobile] = useState(false);
+    const sectionRef = useRef(null);
+    const isInView = useInView(sectionRef, { once: true, margin: '-10%' });
+    const imgControls = useAnimation();
+    const textControls = useAnimation();
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -41,136 +45,165 @@ const About = () => {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
+    useEffect(() => {
+        if (!isInView) return;
+        const runSequence = async () => {
+            // Phase 1: appear small
+            await imgControls.start({
+                opacity: 1,
+                scale: isMobile ? 0.4 : 0.18,
+                x: isMobile ? 0 : '-120vw',
+                rotate: 0,
+                borderRadius: '50%',
+                transition: { duration: 0.5, ease: 'easeOut' }
+            });
+            // Phase 2: spin and fly to the right
+            await imgControls.start({
+                scale: isMobile ? 0.4 : 0.22,
+                x: 0,
+                rotate: 360,
+                borderRadius: '50%',
+                transition: { duration: isMobile ? 1.2 : 3.2, ease: [0.4, 0, 0.2, 1] }
+            });
+            // Phase 3: bloom to full size
+            await imgControls.start({
+                scale: 1,
+                borderRadius: '32px',
+                transition: { duration: 1.1, ease: [0.34, 1.56, 0.64, 1] }
+            });
+            // Phase 4: text appears
+            textControls.start({
+                opacity: 1,
+                x: 0,
+                transition: { duration: 1.0, ease: [0.25, 0.1, 0.25, 1], staggerChildren: 0.1 }
+            });
+        };
+        runSequence();
+    }, [isInView, isMobile]);
+
     return (
         <div id="about" className="about-page" style={{ backgroundColor: 'var(--bg-white)', width: '100%', overflowX: 'hidden' }}>
 
-            {/* UNIFIED HERO AND CONTENT SECTION WITH BACKGROUND */}
-            <section style={{ position: 'relative', marginTop: '6rem', padding: '12rem 0 8rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', overflow: 'hidden' }}>
+            {/* CINEMATIC HERO — Sequential Animation */}
+            <section style={{
+                position: 'relative',
+                marginTop: '4rem',
+                padding: isMobile ? '4rem 0 2rem 0' : '6rem 0 4rem 0',
+                backgroundColor: 'var(--bg-cream)',
+                overflow: 'hidden',
+                minHeight: isMobile ? 'auto' : '90vh',
+                display: 'flex',
+                alignItems: 'center'
+            }}>
+                <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 20% 80%, rgba(74,103,65,0.05) 0%, transparent 60%)', zIndex: 0 }} />
 
-                {/* PUZZLE ANIMATION BACKGROUND - CONSTRAINED RECTANGLE */}
-                <div className="about-puzzle-container" style={{
-                    position: 'absolute',
-                    inset: 0,
-                    zIndex: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <div className="about-puzzle-grid" style={{
+                <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%' }}>
+                    <div ref={sectionRef} style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(5, 1fr)',
-                        gridTemplateRows: 'repeat(5, 1fr)',
-                        backgroundColor: 'var(--bg-white)',
-                        overflow: 'hidden',
-                        boxShadow: '0 40px 100px rgba(0,0,0,0.1)'
+                        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                        gap: isMobile ? '2.5rem' : '4rem',
+                        alignItems: 'center',
                     }}>
-                        {Array.from({ length: 25 }).map((_, i) => {
-                            const col = i % 5;
-                            const row = Math.floor(i / 5);
-                            const delay = (col * 0.04) + (row * 0.04) + (Math.random() * 0.05);
+                        {/* LEFT — Text */}
+                        <motion.div
+                            animate={textControls}
+                            initial={{ opacity: 0, x: -80 }}
+                            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+                        >
+                            <motion.span
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={textControls}
+                                style={{ display: 'block', fontFamily: "'Outfit', sans-serif", fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.4em', textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '1.5rem', opacity: 0 }}
+                            >
+                                Discover Our Roots
+                            </motion.span>
 
-                            return (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, scale: 0.8, rotate: (Math.random() * 10 - 5), filter: 'blur(10px)' }}
-                                    whileInView={{ opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px)' }}
-                                    viewport={{ once: true, margin: "-10%" }}
-                                    transition={{ duration: 0.9, delay: delay, ease: [0.33, 1, 0.68, 1] }}
-                                    style={{
-                                        position: 'relative',
-                                        width: '100%',
-                                        height: '100%',
-                                        border: '1px solid rgba(255,255,255,0.02)',
-                                        overflow: 'hidden'
-                                    }}
-                                >
-                                    <img
-                                        src="/about.jpeg"
-                                        alt="About Us Grid Segment"
-                                        style={{
-                                            position: 'absolute',
-                                            top: `${row * -100}%`,
-                                            left: `${col * -100}%`,
-                                            width: '500%',
-                                            height: '500%',
-                                            objectFit: 'cover'
-                                        }}
-                                    />
-                                </motion.div>
-                            );
-                        })}
+                            <motion.h1
+                                initial={{ opacity: 0, y: 40 }}
+                                animate={textControls}
+                                style={{
+                                    fontFamily: "'Outfit', sans-serif",
+                                    fontSize: isMobile ? 'clamp(4rem, 20vw, 6rem)' : 'clamp(5rem, 12vw, 9rem)',
+                                    fontWeight: 900,
+                                    lineHeight: 0.9,
+                                    letterSpacing: '-0.03em',
+                                    color: 'var(--primary)',
+                                    marginBottom: '3rem',
+                                    textTransform: 'uppercase',
+                                    opacity: 0
+                                }}
+                            >
+                                ABOUT<br />US.
+                            </motion.h1>
+
+                            <motion.h2
+                                initial={{ opacity: 0 }}
+                                animate={textControls}
+                                style={{
+                                    fontFamily: "'Sacramento', cursive",
+                                    fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+                                    color: 'var(--primary)',
+                                    marginBottom: '0.8rem',
+                                    marginTop: '0',
+                                    fontWeight: 400,
+                                    opacity: 0
+                                }}
+                            >
+                                "Crafting Legacy Through Stone"
+                            </motion.h2>
+
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={textControls}
+                                style={{
+                                    fontFamily: "'Outfit', sans-serif",
+                                    fontSize: isMobile ? '0.95rem' : '1.05rem',
+                                    color: 'var(--text-muted)',
+                                    lineHeight: 1.8,
+                                    fontWeight: 400,
+                                    maxWidth: '480px',
+                                    opacity: 0
+                                }}
+                            >
+                                Stonehouse offers expert landscaping and stone paving for residential and commercial properties. Our experienced landscapers set the bar high each day in landscape designing and paving. We strive to revolutionize the art of landscaping and exceed the expectations of our customers.
+                            </motion.p>
+                        </motion.div>
+
+                        {/* RIGHT — Image */}
+                        <motion.div
+                            animate={imgControls}
+                            initial={{
+                                opacity: 0,
+                                scale: 0.12,
+                                x: isMobile ? 0 : '-120vw',
+                                rotate: 0,
+                                borderRadius: '50%'
+                            }}
+                            style={{
+                                position: 'relative',
+                                height: isMobile ? '320px' : '70vh',
+                                overflow: 'hidden',
+                                boxShadow: '0 40px 80px rgba(0,0,0,0.18)',
+                                willChange: 'transform, opacity'
+                            }}
+                        >
+                            <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative', borderRadius: 'inherit' }}>
+                                <img
+                                    src="/about.jpeg"
+                                    alt="About Stonehouse"
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', animation: 'kenBurns 14s ease-in-out infinite alternate' }}
+                                />
+                                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(44,76,52,0.3) 0%, transparent 60%)' }} />
+                            </div>
+                        </motion.div>
+
                     </div>
                 </div>
+            </section >
 
-                <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(233, 239, 230, 0.40)', zIndex: 1, borderRadius: 'inherit' }}></div>
-
-                <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 100, scale: 0.9, rotateX: -15, filter: 'blur(20px)' }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0, filter: 'blur(0px)' }}
-                        viewport={{ once: true, margin: "-20%" }}
-                        transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.4, staggerChildren: 0.15 }}
-                        style={{ color: 'var(--primary)', marginBottom: '1.5rem', perspective: '1000px' }}
-                    >
-                        <motion.span
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
-                            style={{ display: 'block', fontFamily: "'Montserrat', sans-serif", fontSize: '0.85rem', letterSpacing: '0.3em', textTransform: 'uppercase', opacity: 0.8 }}
-                        >
-                            Discover Our Roots
-                        </motion.span>
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
-                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 500, marginTop: '1rem', lineHeight: 1 }}
-                        >
-                            About <span style={{ fontStyle: 'italic', fontWeight: 400 }}>Us.</span>
-                        </motion.h1>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 50, scale: 0.98, filter: 'blur(10px)' }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-                        viewport={{ once: true, margin: "-20%" }}
-                        transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1], delay: 0.7, staggerChildren: 0.15 }}
-                    >
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.7 }}
-                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.1, color: 'var(--primary)', marginBottom: '1.5rem', fontWeight: 500, marginTop: '0' }}
-                        >
-                            Crafting Legacy <br /> <span style={{ fontStyle: 'italic', fontWeight: 400 }}>Through Stone.</span>
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
-                            style={{ fontFamily: "'Montserrat', sans-serif", fontSize: '1.2rem', color: 'var(--text-black)', marginBottom: '2rem', lineHeight: 1.8, fontWeight: 500 }}
-                        >
-                            <strong>STONEHOUSE</strong> offers expert landscaping and stone paving for residential and commercial properties. Our experienced landscapers set the bar high each day in landscape designing and paving.
-                        </motion.p>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
-                            style={{ fontFamily: "'Montserrat', sans-serif", fontSize: '1.1rem', color: 'var(--text-black)', lineHeight: 1.8, fontWeight: 500, opacity: 0.8 }}
-                        >
-                            We strive to revolutionize the art of landscaping and exceed the expectations of our customers. Come, join us and enjoy being a part of building your dream space.
-                        </motion.p>
-                    </motion.div>
-                </div>
-            </section>
 
             {/* STATS COUNTERS */}
-            <section style={{ backgroundColor: 'var(--bg-white)', padding: isMobile ? '2rem 0 1rem 0' : '4rem 0 2rem 0', borderTop: '1px solid rgba(26,54,32,0.05)', borderBottom: '1px solid rgba(26,54,32,0.05)' }}>
+            < section style={{ backgroundColor: 'var(--bg-white)', padding: isMobile ? '2rem 0 1rem 0' : '4rem 0 2rem 0', borderTop: '1px solid rgba(26,54,32,0.05)', borderBottom: '1px solid rgba(26,54,32,0.05)' }}>
                 <div className="container">
                     <div style={{
                         display: 'grid',
@@ -208,12 +241,13 @@ const About = () => {
                                     viewport={{ once: true, margin: "-10%" }}
                                     transition={{ duration: 0.6, type: "spring", stiffness: 100, delay: (i * 0.15) + 0.2 }}
                                     style={{
-                                        fontFamily: "'Cormorant Garamond', serif",
-                                        fontSize: isMobile ? '1.8rem' : 'clamp(3rem, 6vw, 4.5rem)',
+                                        fontFamily: "'Playfair Display', serif",
+                                        fontSize: isMobile ? '2.2rem' : 'clamp(3.5rem, 7vw, 5.5rem)',
                                         color: 'var(--primary)',
-                                        fontWeight: 500,
+                                        fontWeight: 700,
                                         marginBottom: '0.2rem',
-                                        lineHeight: 1
+                                        lineHeight: 1,
+                                        letterSpacing: '-0.02em'
                                     }}
                                 >
                                     <Counter end={stat.value} suffix={stat.suffix} />
@@ -224,12 +258,12 @@ const About = () => {
                                     viewport={{ once: true, margin: "-10%" }}
                                     transition={{ duration: 0.5, delay: (i * 0.15) + 0.4 }}
                                     style={{
-                                        fontFamily: "'Montserrat', sans-serif",
-                                        fontSize: isMobile ? '0.55rem' : '0.8rem',
+                                        fontFamily: "'Outfit', sans-serif",
+                                        fontSize: isMobile ? '0.6rem' : '0.85rem',
                                         textTransform: 'uppercase',
-                                        letterSpacing: isMobile ? '0.1em' : '0.15em',
+                                        letterSpacing: isMobile ? '0.15em' : '0.25em',
                                         color: 'var(--text-muted)',
-                                        fontWeight: 600,
+                                        fontWeight: 700,
                                         whiteSpace: 'nowrap'
                                     }}
                                 >
@@ -239,10 +273,10 @@ const About = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* MISSION STATEMENT */}
-            <section style={{ backgroundColor: 'var(--bg-white)', padding: isMobile ? '2rem 0' : '4rem 0', textAlign: 'center' }}>
+            < section style={{ backgroundColor: 'var(--bg-white)', padding: isMobile ? '2rem 0' : '4rem 0', textAlign: 'center' }}>
                 <div className="container" style={{ maxWidth: '1000px', margin: '0 auto' }}>
                     <motion.div
                         initial={{ opacity: 0, y: 40 }}
@@ -284,7 +318,7 @@ const About = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontStyle: 'italic', color: 'white', lineHeight: 1.4, fontWeight: 400, marginBottom: '2rem' }}
+                            style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(1.8rem, 4.5vw, 3.5rem)', fontStyle: 'italic', color: 'white', lineHeight: 1.4, fontWeight: 400, marginBottom: '2rem', letterSpacing: '0.01em' }}
                         >
                             {isMobile
                                 ? '"Our mission is to blend architectural elegance with nature, constructing spaces that inspire peace."'
@@ -300,8 +334,8 @@ const About = () => {
                         ></motion.div>
                     </motion.div>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 };
 

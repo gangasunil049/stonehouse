@@ -18,6 +18,7 @@ const Header = () => {
         { label: 'About Us', link: '#about' },
         { label: 'Services', link: '#services' },
         { label: 'Gallery', link: '#gallery' },
+        { label: 'Reviews', link: '#reviews' },
         { label: 'Contact', link: '#contact' },
     ];
 
@@ -94,7 +95,8 @@ const Header = () => {
                     </nav>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }} className="md:gap-4">
-                        <a href="#contact" className="cta-btn cta-primary no-underline header-quote-btn">
+                        {/* Get Quote — desktop only */}
+                        <a href="#contact" className="cta-btn cta-primary no-underline header-quote-btn hidden md:inline-flex">
                             <Phone size={12} className="quote-phone-icon" /> <span style={{ fontWeight: 600 }}>Get Quote</span>
                         </a>
 
@@ -108,7 +110,7 @@ const Header = () => {
                                 displaySocials={true}
                                 displayItemNumbering={true}
                                 logoUrl={null}
-                                menuButtonColor={isScrolled ? 'var(--primary)' : 'white'}
+                                menuButtonColor={'white'}
                                 openMenuButtonColor="white"
                                 accentColor="#0d1a10"
                                 changeMenuColorOnOpen={true}

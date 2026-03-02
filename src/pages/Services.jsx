@@ -61,6 +61,42 @@ const ServiceCard = ({ service, index }) => {
         setShinePos({ x: 50, y: 50 });
     };
 
+    // Simple card content (shared between mobile and desktop front)
+    const CardContent = () => (
+        <div
+            className="stone-card group"
+            style={{
+                borderRadius: '32px',
+                border: '1px solid rgba(0, 0, 0, 0.05)',
+                background: '#ffffff',
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '1.5rem',
+                textAlign: 'left',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.03)',
+                overflow: 'hidden',
+                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                width: '100%'
+            }}
+        >
+            <div style={{ width: '100%', height: '200px', borderRadius: '24px', overflow: 'hidden', marginBottom: '1.5rem' }}>
+                <img src={service.image} alt={service.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }} className="group-hover:scale-110" />
+            </div>
+            <div style={{ padding: '0 0.5rem' }}>
+                <h3 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '1.3rem', color: 'var(--primary-deep)', marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>
+                    {service.title}
+                </h3>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 400, lineHeight: 1.6, fontFamily: "'Outfit', sans-serif" }}>
+                    {isMobile && service.description.length > 80 ? service.description.substring(0, 80) + '…' : service.description}
+                </p>
+            </div>
+        </div>
+    );
+
+    if (isMobile) {
+        return <CardContent />;
+    }
+
     return (
         <div
             ref={cardRef}
@@ -68,202 +104,33 @@ const ServiceCard = ({ service, index }) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             className="flip-card-container cursor-pointer"
-            style={{
-                height: isMobile ? '280px' : '420px',
-                perspective: isMobile ? 'none' : '2000px',
-                WebkitFontSmoothing: 'antialiased'
-            }}
+            style={{ height: '480px', perspective: '2000px', WebkitFontSmoothing: 'antialiased' }}
         >
             <motion.div
                 className="flip-card-inner"
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'relative',
-                    transformStyle: 'preserve-3d',
-                    rotateX: (isMobile || isFlipped) ? 0 : rotateX,
-                    rotateY: (isMobile || isFlipped) ? 0 : rotateY // Tilt rotateY
-                }}
+                style={{ width: '100%', height: '100%', position: 'relative', transformStyle: 'preserve-3d', rotateX: isFlipped ? 0 : rotateX, rotateY: isFlipped ? 0 : rotateY }}
             >
-                {/* FLIP WRAPPER - This handles the 180deg flip separately to avoid conflicts */}
                 <motion.div
                     animate={{ rotateY: isFlipped ? 180 : 0 }}
-                    transition={{
-                        type: "spring",
-                        stiffness: 200,
-                        damping: 25,
-                        mass: 1
-                    }}
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        transformStyle: 'preserve-3d',
-                        position: 'relative'
-                    }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 25, mass: 1 }}
+                    style={{ width: '100%', height: '100%', transformStyle: 'preserve-3d', position: 'relative' }}
                 >
-                    {/* FRONT SIDE */}
-                    <div
-                        className="flip-card-front stone-card relative overflow-hidden"
-                        style={{
-                            position: 'absolute',
-                            inset: 0,
-                            backfaceVisibility: 'hidden',
-                            WebkitBackfaceVisibility: 'hidden',
-                            transform: 'translateZ(0)',
-                            borderRadius: '16px',
-                            border: '1px solid rgba(232, 213, 181, 0.2)',
-                            background: 'linear-gradient(135deg, #ffffff 0%, #f4f7f2 100%)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: isMobile ? '1.5rem 1rem' : '3rem 2rem',
-                            textAlign: 'center',
-                            boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
-                            zIndex: 1
-                        }}
-                    >
-                        {/* DYNAMIC GOLD SHIMMER */}
-                        <div
-                            style={{
-                                position: 'absolute',
-                                inset: 0,
-                                pointerEvents: 'none',
-                                background: `radial-gradient(circle at ${shinePos.x}% ${shinePos.y}%, rgba(232, 213, 181, 0.2) 0%, transparent 60%)`,
-                                zIndex: 2,
-                                opacity: (isMobile || isFlipped) ? 0 : 1,
-                                transition: 'opacity 0.3s'
-                            }}
-                        />
-
-                        {/* SUBTLE GRAIN TEXTURE */}
-                        <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            opacity: 0.03,
-                            pointerEvents: 'none',
-                            backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")',
-                            zIndex: 1
-                        }} />
-
-                        {/* WATERMARK ICON */}
-                        <div style={{
-                            position: 'absolute',
-                            bottom: '-10px',
-                            right: '-10px',
-                            opacity: 0.04,
-                            transform: isMobile ? 'scale(2.5) rotate(-15deg)' : 'scale(5) rotate(-15deg)',
-                            color: 'var(--primary)',
-                            pointerEvents: 'none',
-                            zIndex: 0
-                        }}>
-                            {service.icon}
-                        </div>
-
-                        {/* INDEX NUMBER */}
-                        <span style={{
-                            position: 'absolute',
-                            top: isMobile ? '1rem' : '2.5rem',
-                            right: isMobile ? '1.2rem' : '2.5rem',
-                            fontSize: '0.7rem',
-                            fontWeight: 300,
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontStyle: 'italic',
-                            color: '#D4AF37',
-                            letterSpacing: '0.2em',
-                            opacity: 0.6,
-                            zIndex: 3
-                        }}>
-                            {index + 1 < 10 ? `0${index + 1}` : index + 1}
-                        </span>
-
-                        <div style={{ position: 'relative', zIndex: 3 }}>
-                            <h3
-                                className={isMobile ? "text-sm mb-4 text-black uppercase" : "text-xl mb-6 text-black uppercase"}
-                                style={{
-                                    fontFamily: "'Montserrat', sans-serif",
-                                    fontWeight: 800,
-                                    letterSpacing: isMobile ? '0.1em' : '0.3em',
-                                    lineHeight: 1.2
-                                }}
-                            >
-                                {service.title}
-                            </h3>
-
-                            <div style={{
-                                width: isMobile ? '30px' : '50px',
-                                height: '2px',
-                                background: 'linear-gradient(90deg, transparent, #e8d5b5, transparent)',
-                                margin: '0 auto 1.5rem',
-                                opacity: 0.8
-                            }}></div>
-
-                            <p
-                                className="leading-relaxed"
-                                style={{
-                                    fontSize: isMobile ? '0.6rem' : '0.8rem',
-                                    padding: isMobile ? '0 0.5rem' : '0 1.5rem',
-                                    color: '#555',
-                                    fontWeight: 500,
-                                    letterSpacing: '0.03em',
-                                    fontFamily: "'Montserrat', sans-serif"
-                                }}
-                            >
-                                {isMobile && service.description.length > 80
-                                    ? service.description.substring(0, 77) + "..."
-                                    : service.description}
-                            </p>
-                        </div>
-
-                        {!isMobile && (
-                            <div style={{
-                                position: 'absolute',
-                                bottom: '2rem',
-                                fontSize: '0.6rem',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.3em',
-                                color: 'var(--primary)',
-                                opacity: 0.3,
-                                zIndex: 3
-                            }}>
-                                Touch to Explore
-                            </div>
-                        )}
+                    {/* FRONT */}
+                    <div style={{ position: 'absolute', inset: 0, backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+                        <CardContent />
                     </div>
 
-                    {/* BACK SIDE */}
+                    {/* BACK */}
                     <div
                         className="flip-card-back"
-                        style={{
-                            position: 'absolute',
-                            inset: 0,
-                            backfaceVisibility: 'hidden',
-                            transform: 'rotateY(180deg)',
-                            borderRadius: '16px',
-                            overflow: 'hidden',
-                            border: '3px solid var(--primary)',
-                            background: 'white'
-                        }}
+                        style={{ position: 'absolute', inset: 0, backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', borderRadius: '16px', overflow: 'hidden', border: '3px solid var(--primary)', background: 'white' }}
                     >
                         <img src={service.image} alt={service.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                        <div className="absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-4 md:p-8 text-center text-white backdrop-blur-md">
+                        <div className="absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-8 text-center text-white backdrop-blur-md">
                             <span style={{ fontSize: '0.5rem', letterSpacing: '0.4em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '0.5rem' }}>Our Work</span>
-                            <h3 className={isMobile ? "text-xl font-light mb-4" : "text-3xl font-light mb-6"} style={{ fontFamily: "'Cormorant Garamond', serif" }}>{service.title}</h3>
+                            <h3 className="text-3xl font-light mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{service.title}</h3>
                             <div className="w-12 h-[1px] bg-[#e8d5b5] mb-4"></div>
-                            <button
-                                style={{
-                                    padding: isMobile ? '0.5rem 1rem' : '1rem 2rem',
-                                    border: '1px solid rgba(255,255,255,0.3)',
-                                    background: 'transparent',
-                                    color: 'white',
-                                    fontSize: isMobile ? '0.5rem' : '0.7rem',
-                                    fontWeight: 600,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.2em',
-                                    cursor: 'pointer'
-                                }}
-                            >
+                            <button style={{ padding: '1rem 2rem', border: '1px solid rgba(255,255,255,0.3)', background: 'transparent', color: 'white', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', cursor: 'pointer' }}>
                                 View Details
                             </button>
                         </div>
@@ -330,8 +197,8 @@ const Services = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                            className="text-5xl md:text-7xl font-light text-primary"
-                            style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: '-0.02em' }}
+                            className="text-5xl md:text-7xl font-bold text-primary"
+                            style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em' }}
                         >
                             Our <span style={{ fontStyle: 'italic' }}>Services.</span>
                         </motion.h2>

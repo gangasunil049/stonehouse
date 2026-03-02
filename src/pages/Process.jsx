@@ -46,8 +46,8 @@ const Process = () => {
                     className="section-title text-center mb-8 md:mb-16"
                 >
                     <h2
-                        className="text-5xl md:text-7xl font-light text-primary"
-                        style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: '-0.02em', fontSize: isMobile ? '3.5rem' : '' }}
+                        className="text-5xl md:text-7xl font-bold text-primary"
+                        style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', fontSize: isMobile ? '3.5rem' : '' }}
                     >
                         Our <span style={{ fontStyle: 'italic' }}>Process.</span>
                     </h2>
@@ -69,7 +69,7 @@ const Process = () => {
                                 padding: isMobile ? '1.5rem 1rem' : '4rem 2.5rem',
                                 backgroundColor: 'var(--bg-cream)',
                                 textAlign: 'center',
-                                borderRadius: '12px'
+                                borderRadius: 'var(--radius-md)'
                             }}
                             className="hover-dark-green transition-all duration-500 cursor-pointer"
                         >
@@ -86,7 +86,7 @@ const Process = () => {
                             }}>
                                 {step.icon}
                             </div>
-                            <h3 className={isMobile ? "text-lg font-black mb-2" : "text-3xl font-black mb-4"}>{step.title}</h3>
+                            <h3 className={isMobile ? "text-lg font-bold mb-2" : "text-3xl font-bold mb-4"} style={{ fontFamily: "'Outfit', sans-serif" }}>{step.title}</h3>
                             <p className="text-muted leading-relaxed" style={{ fontSize: isMobile ? '0.65rem' : '0.9rem' }}>{step.description}</p>
                         </motion.div>
                     ))}

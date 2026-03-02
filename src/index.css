@@ -1,19 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Outfit:wght@100;300;400;500;600;700;800;900&family=Sacramento&display=swap');
 
 :root {
-  --primary: #1A3620;
+  --primary: #4a6741;
+  /* Sage Green */
+  --primary-deep: #2C4C34;
   /* Deep Forest Green */
-  --primary-light: #2C4C34;
   --earth: #111111;
   --accent: #D4AF37;
-  /* Metallic Gold Accent */
-  --bg-cream: #E9EFE6;
-  /* Light subtle green */
-  --bg-white: #F2F7EF;
-  /* Very light green */
+  --bg-soft: #f0faf4;
+  /* Soft Green tint */
+  --bg-cream: #f5f9f5;
+  /* Light Mint White */
+  --bg-white: #ffffff;
   --text-black: #1A1A1A;
-  /* Not stark black, softer for luxury */
   --text-muted: #666666;
+  --radius-lg: 40px;
+  --radius-md: 24px;
+  --radius-sm: 12px;
 }
 
 .flex {
@@ -47,7 +50,7 @@ body,
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif;
   background-color: var(--bg-cream);
   color: var(--text-black);
   line-height: 1.6;
@@ -141,25 +144,24 @@ section {
 
 .header-main {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 4rem);
+  max-width: 1400px;
   z-index: 1000;
+  border-radius: 999px;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   padding: 0.8rem 0;
-  margin: 0;
-  width: 100%;
-  max-width: none;
-  left: 0;
-  border-radius: 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 999px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .header-scrolled .nav-link,
@@ -180,7 +182,8 @@ section {
 
 .header-transparent {
   background: transparent;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Hero Section Redesign: Full Background Layout */
@@ -228,15 +231,15 @@ section {
   z-index: 3;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0 8vw;
-  /* More breathing room on the side */
+  justify-content: flex-start;
+  padding: 0 10vw;
 }
 
 @media (max-width: 768px) {
   .hero-main-content {
     justify-content: center;
-    padding: 0 1.5rem;
+    padding: 0 5vw;
+    text-align: center;
   }
 }
 
@@ -310,11 +313,11 @@ section {
 .text-sparkle {
   color: transparent !important;
   background: linear-gradient(110deg,
-      #b08d55 20%,
-      #fff5e1 45%,
+      #a8d5a2 20%,
+      #dff5db 45%,
       #ffffff 50%,
-      #fff5e1 55%,
-      #b08d55 80%);
+      #dff5db 55%,
+      #a8d5a2 80%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -429,11 +432,11 @@ section {
 
 .section-title h2 {
   font-size: 3rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
   text-transform: none;
   /* Removed uppercase for a more premium editorial feel */
-  letter-spacing: 0.05em;
+  letter-spacing: -0.02em;
   color: var(--text-black);
 }
 
@@ -443,19 +446,33 @@ section {
   padding: 0 2rem;
 }
 
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 /* Button Refinement */
 .cta-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 1.2rem 2.8rem;
-  border-radius: 0;
+  border-radius: 50px;
+  /* Pill shape */
   font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   text-decoration: none;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   font-size: 11px;
 }
@@ -485,11 +502,11 @@ section {
 /* Card Design */
 .stone-card {
   background: white;
-  border-radius: 0;
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
-  transition: all 0.5s ease;
-  border: 2px solid var(--primary);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .stone-card:hover {

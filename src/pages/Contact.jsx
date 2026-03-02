@@ -11,16 +11,16 @@ const Contact = () => {
         {
             icon: <Phone size={28} />,
             title: "Call Us",
-            value: "+91 98765 43210",
-            link: "tel:+919876543210",
+            value: "+91 94978 30974",
+            link: "tel:+919497830974",
             label: "Voice Support",
             bg: "#f5f5f0"
         },
         {
             icon: <MessageCircle size={28} />,
             title: "WhatsApp",
-            value: "+91 98765 43210",
-            link: "https://wa.me/919876543210",
+            value: "+91 94978 30974",
+            link: "https://wa.me/919497830974",
             label: "Quick Chat",
             bg: "#f0faf4"
         },
@@ -61,12 +61,12 @@ const Contact = () => {
             </section>
 
             {/* ─── CONTACT METHODS — FULL-WIDTH VERTICAL STACK ────── */}
-            <section style={{ background: 'var(--cream)', paddingTop: '5rem', paddingBottom: '3rem' }}>
+            <section style={{ background: 'var(--primary)', paddingTop: '5rem', paddingBottom: '3rem' }}>
                 <div className="container">
 
                     <div style={{ maxWidth: '780px', marginBottom: '1.5rem' }}>
-                        <p style={{ fontSize: '0.7rem', fontWeight: 900, letterSpacing: '0.35em', textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '0.8rem' }}>Reach Us Directly</p>
-                        <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, margin: 0 }}>Choose how you'd like to <span style={{ color: 'var(--primary)' }}>connect.</span></h2>
+                        <p style={{ fontSize: '0.7rem', fontWeight: 900, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#e8d5b5', marginBottom: '0.8rem' }}>Reach Us Directly</p>
+                        <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, margin: 0, color: 'white' }}>Choose how you'd like to <span style={{ color: '#e8d5b5', fontStyle: 'italic' }}>connect.</span></h2>
                     </div>
 
                     {/* THREE CARDS — ONE BELOW ANOTHER */}

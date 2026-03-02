@@ -8,6 +8,7 @@ import Services from './Services';
 import Gallery from './Gallery';
 import Process from './Process';
 import WhyChooseUs from './WhyChooseUs';
+import Reviews from './Reviews';
 
 const MagicStar = ({ style, delay }) => (
     <div className="magic-star" style={{ ...style, animationDelay: `${delay}s` }}>
@@ -32,14 +33,14 @@ const Home = () => {
         {
             icon: <Phone size={28} />,
             title: "Call Us Now",
-            value: "+91 9497 830 974",
+            value: "+91 94978 30974",
             link: "tel:+919497830974"
         },
         {
             icon: <MessageCircle size={28} />,
             title: "WhatsApp Chat",
-            value: "+91 9778 081 656",
-            link: "https://wa.me/919778081656",
+            value: "+91 94978 30974",
+            link: "https://wa.me/919497830974",
             color: "#25D366"
         },
         {
@@ -72,62 +73,73 @@ const Home = () => {
 
                 <div className="hero-main-content">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-                        style={{ textAlign: 'center', zIndex: 10, width: '100%', overflow: 'hidden' }}
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
+                        style={{ textAlign: 'left', zIndex: 10, maxWidth: '800px' }}
                     >
-                        <div style={{ position: 'relative', display: 'inline-block' }}>
-                            {/* Original Stars */}
-                            <MagicStar style={{ top: '-15px', left: '-25px', width: '24px', height: '24px' }} delay={0} />
-                            <MagicStar style={{ top: '25%', right: '-35px', width: '18px', height: '18px' }} delay={1.2} />
-                            <MagicStar style={{ bottom: '5px', left: '35%', width: '14px', height: '14px' }} delay={0.6} />
-                            <MagicStar style={{ top: '5px', left: '15%', width: '12px', height: '12px' }} delay={2} />
-                            <MagicStar style={{ bottom: '-20px', right: '15%', width: '26px', height: '26px' }} delay={1.8} />
-
-                            {/* New Additional Stars */}
-                            <MagicStar style={{ top: '-30px', left: '40%', width: '16px', height: '16px' }} delay={0.3} />
-                            <MagicStar style={{ bottom: '25px', left: '-40px', width: '20px', height: '20px' }} delay={1.5} />
-                            <MagicStar style={{ top: '15px', right: '20%', width: '10px', height: '10px' }} delay={2.5} />
-                            <MagicStar style={{ bottom: '-10px', right: '-10px', width: '18px', height: '18px' }} delay={0.9} />
-                            <MagicStar style={{ top: '60%', left: '-15px', width: '12px', height: '12px' }} delay={2.2} />
-                            <MagicStar style={{ top: '-10px', right: '5%', width: '14px', height: '14px' }} delay={1.1} />
-                            <MagicStar style={{ bottom: '40%', left: '50%', width: '8px', height: '8px' }} delay={2.8} />
-
-                            <h1 className="text-sparkle" style={{
-                                fontFamily: "'Cormorant Garamond', serif",
-                                fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-                                lineHeight: 1.1,
-                                marginBottom: '1rem',
-                                fontWeight: 700
-                            }}>
-                                Your gateway to <br /> <span style={{ fontStyle: 'italic', fontWeight: 600 }}>New Gardens</span>
-                            </h1>
-                        </div>
+                        <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.8 }}
+                            transition={{ delay: 0.8 }}
+                            style={{
+                                background: 'rgba(255,255,255,0.2)',
+                                padding: '0.5rem 1.2rem',
+                                borderRadius: '50px',
+                                fontSize: '0.7rem',
+                                fontWeight: 700,
+                                color: 'white',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                marginBottom: '2rem',
+                                display: 'inline-block',
+                                backdropFilter: 'blur(10px)',
+                                border: '1px solid rgba(255,255,255,0.1)'
+                            }}
+                        >
+                            Nature Inspired
+                        </motion.span>
+                        <h1 style={{
+                            fontFamily: "'Outfit', sans-serif",
+                            fontSize: 'clamp(3rem, 10vw, 6rem)',
+                            lineHeight: 1.2,
+                            marginBottom: '1.5rem',
+                            fontWeight: 800,
+                            color: 'white',
+                            letterSpacing: '-0.02em',
+                            overflow: 'visible',
+                            paddingRight: '0.3em'
+                        }}>
+                            <span className="text-sparkle" style={{ paddingRight: '0.1em' }}>Your gateway to</span> <br /> <span className="text-sparkle" style={{ fontWeight: 800, paddingRight: '0.1em' }}>New Gardens</span>
+                        </h1>
                         <p style={{
                             fontFamily: "'Montserrat', sans-serif",
                             color: '#ffffff',
-                            textShadow: '0 2px 10px rgba(0,0,0,0.8)',
                             fontSize: '1.1rem',
-                            letterSpacing: '0.2em',
+                            opacity: 0.8,
+                            marginBottom: '1rem',
+                            fontWeight: 600,
                             textTransform: 'uppercase',
-                            opacity: 0.95,
-                            marginBottom: '0.5rem',
-                            fontWeight: 600
+                            letterSpacing: '0.2em',
+                            maxWidth: '600px',
+                            lineHeight: 1.6
                         }}>
                             Green solutions For your space
                         </p>
                         <p style={{
-                            fontFamily: "'Montserrat', sans-serif",
-                            color: '#b08d55',
-                            textShadow: '0 2px 10px rgba(0,0,0,0.8)',
-                            fontSize: '0.9rem',
-                            letterSpacing: '0.1em',
-                            opacity: 0.8,
-                            fontWeight: 600
+                            fontFamily: "'Outfit', sans-serif",
+                            color: '#a8d5a2',
+                            fontSize: '1rem',
+                            opacity: 1,
+                            marginBottom: '3rem',
+                            fontWeight: 500,
+                            maxWidth: '500px',
+                            lineHeight: 1.6
                         }}>
                             Pave the way to a Beautiful Greener Future..
                         </p>
+
+
                     </motion.div>
                 </div>
 
@@ -177,12 +189,13 @@ const Home = () => {
             <Services />
             <Process />
             <Gallery />
+            <Reviews />
 
             {/* ULTRA PREMIUM CONTACT SECTION */}
             <section id="contact" style={{
-                background: 'linear-gradient(180deg, #1a3620 0%, #0d1a10 100%)',
+                background: 'white',
                 padding: isMobile ? '1rem 0 2rem 0' : '10rem 0',
-                color: 'white',
+                color: 'var(--primary)',
                 position: 'relative'
             }}>
                 <div style={{ position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none', backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")' }}></div>
@@ -202,10 +215,10 @@ const Home = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                            className="text-5xl md:text-7xl font-light"
-                            style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: '-0.02em', color: '#e8d5b5' }}
+                            className="text-5xl md:text-7xl font-bold"
+                            style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', color: 'var(--primary)' }}
                         >
-                            Let's Build Your <span style={{ fontStyle: 'italic', color: 'white' }}>Sanctuary.</span>
+                            Let's Build Your <span style={{ fontStyle: 'italic', color: '#5a7a50' }}>Sanctuary.</span>
                         </motion.h2>
                     </div>
 
@@ -231,18 +244,19 @@ const Home = () => {
                                     flexDirection: 'column',
                                     alignItems: 'center',
                                     padding: isMobile ? '1.5rem 0.5rem' : '4rem 2rem',
-                                    background: 'rgba(255,255,255,0.01)',
-                                    border: '1px solid rgba(232, 213, 181, 0.1)',
+                                    background: 'var(--primary)',
+                                    border: '1px solid rgba(74,103,65,0.2)',
                                     textDecoration: 'none',
                                     color: 'white',
-                                    borderRadius: '8px',
+                                    borderRadius: '12px',
                                     transition: 'all 0.4s ease',
-                                    textAlign: 'center'
+                                    textAlign: 'center',
+                                    boxShadow: '0 4px 20px rgba(74,103,65,0.15)'
                                 }}
                                 whileHover={!isMobile ? {
-                                    background: 'rgba(232, 213, 181, 0.03)',
-                                    borderColor: 'rgba(232, 213, 181, 0.3)',
-                                    transform: 'translateY(-5px)'
+                                    background: '#2C4C34',
+                                    transform: 'translateY(-5px)',
+                                    boxShadow: '0 12px 40px rgba(74,103,65,0.3)'
                                 } : {}}
                             >
                                 <div style={{ color: '#e8d5b5', marginBottom: isMobile ? '0.75rem' : '1.5rem', opacity: 0.8 }}>
@@ -267,8 +281,9 @@ const Home = () => {
                         >
                             <div style={{
                                 padding: isMobile ? '1rem' : '2rem',
-                                background: 'rgba(255,255,255,0.02)',
-                                border: '1px solid rgba(232, 213, 181, 0.1)',
+                                background: 'var(--primary)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                borderRadius: '12px',
                                 position: 'relative'
                             }}>
                                 <div className="flex items-start gap-4 mb-6">
@@ -280,25 +295,15 @@ const Home = () => {
                                 </div>
 
                                 {/* ULTRA COMPACT MAP CONTAINER */}
-                                <div className="relative group overflow-hidden" style={{ height: isMobile ? '150px' : '300px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                <div className="relative overflow-hidden" style={{ height: isMobile ? '150px' : '300px', borderRadius: '8px', overflow: 'hidden' }}>
                                     <iframe
                                         src="https://www.google.com/maps?q=stone+house+manthamaruthi,ranni,kerala,689676&output=embed"
                                         width="100%"
                                         height="100%"
-                                        style={{ border: 0, filter: 'grayscale(1) invert(0.9) contrast(1.2) opacity(0.6)' }}
+                                        style={{ border: 0 }}
                                         allowFullScreen=""
                                         loading="lazy"
                                     ></iframe>
-                                    <a
-                                        href="https://www.google.com/maps?q=stone+house+manthamaruthi,ranni,kerala,689676"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="absolute inset-0 bg-transparent flex items-center justify-center group-hover:bg-primary/20 transition-all"
-                                    >
-                                        <div className="bg-white text-primary px-4 py-2 text-[0.6rem] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                                            Open Map
-                                        </div>
-                                    </a>
                                 </div>
                             </div>
                         </motion.div>

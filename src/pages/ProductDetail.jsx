@@ -76,7 +76,7 @@ const ProductDetail = () => {
                                 <a href="#quote" className="btn btn-primary lg:px-10">
                                     Request Quote
                                 </a>
-                                <a href="tel:+919876543210" className="btn btn-secondary lg:px-10">
+                                <a href="tel:+919497830974" className="btn btn-secondary lg:px-10">
                                     <Phone size={18} /> Call Specialist
                                 </a>
                             </div>
