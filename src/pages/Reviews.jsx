@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, ChevronDown } from 'lucide-react';
 
 const reviews = [
     {
@@ -69,15 +69,15 @@ const reviews = [
     },
 ];
 
-const StarRating = ({ count }) => (
-    <div style={{ display: 'flex', gap: '3px', marginBottom: '0.8rem' }}>
+const StarRating = ({ count, small }) => (
+    <div style={{ display: 'flex', gap: '2px', marginBottom: small ? '0.4rem' : '0.8rem' }}>
         {Array.from({ length: count }).map((_, i) => (
-            <Star key={i} size={16} fill="#f4b942" color="#f4b942" />
+            <Star key={i} size={small ? 12 : 16} fill="#f4b942" color="#f4b942" />
         ))}
     </div>
 );
 
-const ReviewCard = ({ review, index }) => {
+const ReviewCard = ({ review, index, isMobile }) => {
     const [hovered, setHovered] = useState(false);
 
     return (
@@ -90,51 +90,53 @@ const ReviewCard = ({ review, index }) => {
             onMouseLeave={() => setHovered(false)}
             style={{
                 backgroundColor: 'white',
-                borderRadius: '20px',
-                padding: '2rem',
+                borderRadius: isMobile ? '14px' : '20px',
+                padding: isMobile ? '1.1rem' : '2rem',
                 boxShadow: hovered ? '0 20px 60px rgba(44,76,52,0.15)' : '0 4px 24px rgba(0,0,0,0.07)',
                 border: `1px solid ${hovered ? '#4a6741' : 'rgba(0,0,0,0.06)'}`,
                 transition: 'all 0.3s ease',
                 transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
                 position: 'relative',
                 breakInside: 'avoid',
-                marginBottom: '1.5rem',
+                marginBottom: isMobile ? '0' : '1.5rem',
                 display: 'inline-block',
                 width: '100%'
             }}
         >
             {/* Big quote mark */}
             <Quote
-                size={36}
+                size={isMobile ? 20 : 36}
                 style={{
                     position: 'absolute',
-                    top: '1.2rem',
-                    right: '1.5rem',
+                    top: '0.8rem',
+                    right: '0.8rem',
                     color: '#4a6741',
                     opacity: 0.12
                 }}
             />
 
             {/* Stars */}
-            <StarRating count={review.rating} />
+            <StarRating count={review.rating} small={isMobile} />
 
             {/* Review text */}
             <p style={{
                 fontFamily: "'Outfit', sans-serif",
-                fontSize: '0.95rem',
+                fontSize: isMobile ? '0.72rem' : '0.95rem',
                 color: '#444',
-                lineHeight: 1.75,
-                marginBottom: '1.5rem',
+                lineHeight: isMobile ? 1.5 : 1.75,
+                marginBottom: isMobile ? '0.8rem' : '1.5rem',
                 fontStyle: 'italic'
             }}>
-                "{review.text}"
+                "{isMobile && review.text.length > 80
+                    ? review.text.slice(0, 80) + '…'
+                    : review.text}"
             </p>
 
             {/* Reviewer */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '0.4rem' : '0.8rem' }}>
                 <div style={{
-                    width: '42px',
-                    height: '42px',
+                    width: isMobile ? '28px' : '42px',
+                    height: isMobile ? '28px' : '42px',
                     borderRadius: '50%',
                     backgroundColor: review.color,
                     display: 'flex',
@@ -142,29 +144,32 @@ const ReviewCard = ({ review, index }) => {
                     justifyContent: 'center',
                     color: 'white',
                     fontWeight: 700,
-                    fontSize: '0.85rem',
+                    fontSize: isMobile ? '0.6rem' : '0.85rem',
                     fontFamily: "'Outfit', sans-serif",
                     flexShrink: 0
                 }}>
                     {review.initials}
                 </div>
                 <div>
-                    <p style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '0.92rem', color: '#1A1A1A', margin: 0 }}>
+                    <p style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: isMobile ? '0.68rem' : '0.92rem', color: '#1A1A1A', margin: 0 }}>
                         {review.name}
                     </p>
-                    <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '0.75rem', color: '#888', margin: 0 }}>
-                        Google Review · {review.date}
-                    </p>
+                    {!isMobile && (
+                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '0.75rem', color: '#888', margin: 0 }}>
+                            Google Review · {review.date}
+                        </p>
+                    )}
                 </div>
-                {/* Google G logo */}
-                <div style={{ marginLeft: 'auto' }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                    </svg>
-                </div>
+                {!isMobile && (
+                    <div style={{ marginLeft: 'auto' }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                        </svg>
+                    </div>
+                )}
             </div>
         </motion.div>
     );
@@ -173,6 +178,17 @@ const ReviewCard = ({ review, index }) => {
 const Reviews = () => {
     const totalRating = 5.0;
     const totalReviews = reviews.length;
+    const [showAll, setShowAll] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth <= 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
+
+    const displayedReviews = isMobile && !showAll ? reviews.slice(0, 4) : reviews;
 
     return (
         <section id="reviews" style={{ backgroundColor: 'var(--primary)', padding: '6rem 0' }}>
@@ -223,15 +239,58 @@ const Reviews = () => {
                     </div>
                 </motion.div>
 
-                {/* Masonry card grid */}
-                <div style={{
-                    columns: 'auto 320px',
-                    columnGap: '1.5rem',
-                }}>
-                    {reviews.map((review, index) => (
-                        <ReviewCard key={index} review={review} index={index} />
-                    ))}
-                </div>
+                {/* Card grid */}
+                {isMobile ? (
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        gap: '1rem',
+                    }}>
+                        {displayedReviews.map((review, index) => (
+                            <ReviewCard key={index} review={review} index={index} isMobile={isMobile} />
+                        ))}
+                    </div>
+                ) : (
+                    <div style={{
+                        columns: 'auto 320px',
+                        columnGap: '1.5rem',
+                    }}>
+                        {displayedReviews.map((review, index) => (
+                            <ReviewCard key={index} review={review} index={index} isMobile={isMobile} />
+                        ))}
+                    </div>
+                )}
+
+                {/* Show More button — mobile only */}
+                {isMobile && !showAll && reviews.length > 4 && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        style={{ textAlign: 'center', marginTop: '1.5rem' }}
+                    >
+                        <button
+                            onClick={() => setShowAll(true)}
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                padding: '0.75rem 1.75rem',
+                                backgroundColor: 'white',
+                                color: 'var(--primary)',
+                                border: '2px solid white',
+                                borderRadius: '100px',
+                                fontFamily: "'Outfit', sans-serif",
+                                fontWeight: 700,
+                                fontSize: '0.9rem',
+                                cursor: 'pointer',
+                                boxShadow: '0 4px 20px rgba(0,0,0,0.15)'
+                            }}
+                        >
+                            Show More Reviews
+                            <ChevronDown size={16} />
+                        </button>
+                    </motion.div>
+                )}
 
                 {/* CTA to Google */}
                 <motion.div

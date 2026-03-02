@@ -1244,4 +1244,36 @@ section {
   .md\:pb-32 {
     padding-bottom: 8rem !important;
   }
+
+  /* Mobile header: always transparent, no pill background */
+  .header-main,
+  .header-scrolled,
+  .header-transparent {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0.75rem 0 !important;
+    width: calc(100% - 2rem) !important;
+  }
+
+  /* Keep logo text and spans readable on mobile */
+  .header-scrolled .nav-link,
+  .header-scrolled span {
+    color: white !important;
+  }
+
+  .header-scrolled .circular-logo-container {
+    border-color: white !important;
+  }
+
+  /* Hamburger lines — force visibility */
+  .staggered-menu-btn span,
+  .staggered-menu-btn div,
+  [class*="menu-btn"] span,
+  [class*="hamburger"] span {
+    background-color: white !important;
+    opacity: 1 !important;
+  }
 }
