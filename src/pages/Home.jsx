@@ -9,6 +9,7 @@ import Gallery from './Gallery';
 import Process from './Process';
 import WhyChooseUs from './WhyChooseUs';
 import Reviews from './Reviews';
+import Contact from './Contact';
 
 const MagicStar = ({ style, delay }) => (
     <div className="magic-star" style={{ ...style, animationDelay: `${delay}s` }}>
@@ -190,126 +191,7 @@ const Home = () => {
             <Process />
             <Gallery />
             <Reviews />
-
-            {/* ULTRA PREMIUM CONTACT SECTION */}
-            <section id="contact" style={{
-                background: 'white',
-                padding: isMobile ? '1rem 0 2rem 0' : '10rem 0',
-                color: 'var(--primary)',
-                position: 'relative'
-            }}>
-                <div style={{ position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none', backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")' }}></div>
-
-                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-                    <div className="section-title text-center mb-24">
-                        <motion.span
-                            initial={{ opacity: 0, tracking: '0.1em' }}
-                            whileInView={{ opacity: 0.6, tracking: '0.4em' }}
-                            viewport={{ once: true }}
-                            className="font-bold uppercase text-[0.6rem] mb-6 block text-[#e8d5b5]"
-                        >
-                            Get In Touch
-                        </motion.span>
-                        <motion.h2
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                            className="text-5xl md:text-7xl font-bold"
-                            style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', color: 'var(--primary)' }}
-                        >
-                            Let's Build Your <span style={{ fontStyle: 'italic', color: '#5a7a50' }}>Sanctuary.</span>
-                        </motion.h2>
-                    </div>
-
-                    {/* CONTACT CARDS — PREMIUM MINIMALISM */}
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(auto-fit, minmax(280px, 1fr))',
-                        gap: isMobile ? '0.75rem' : '2rem',
-                        marginBottom: isMobile ? '3rem' : '8rem'
-                    }}>
-                        {contactMethods.map((method, i) => (
-                            <motion.a
-                                key={i}
-                                href={method.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.8, delay: i * 0.1 }}
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    padding: isMobile ? '1.5rem 0.5rem' : '4rem 2rem',
-                                    background: 'var(--primary)',
-                                    border: '1px solid rgba(74,103,65,0.2)',
-                                    textDecoration: 'none',
-                                    color: 'white',
-                                    borderRadius: '12px',
-                                    transition: 'all 0.4s ease',
-                                    textAlign: 'center',
-                                    boxShadow: '0 4px 20px rgba(74,103,65,0.15)'
-                                }}
-                                whileHover={!isMobile ? {
-                                    background: '#2C4C34',
-                                    transform: 'translateY(-5px)',
-                                    boxShadow: '0 12px 40px rgba(74,103,65,0.3)'
-                                } : {}}
-                            >
-                                <div style={{ color: '#e8d5b5', marginBottom: isMobile ? '0.75rem' : '1.5rem', opacity: 0.8 }}>
-                                    {React.cloneElement(method.icon, { size: isMobile ? 20 : 28 })}
-                                </div>
-                                <p style={{ fontSize: isMobile ? '0.5rem' : '0.6rem', fontWeight: 600, letterSpacing: isMobile ? '0.1rem' : '0.3rem', textTransform: 'uppercase', color: '#e8d5b5', margin: '0 0 0.5rem', opacity: 0.6 }}>{isMobile ? method.title.split(' ')[0] : method.title}</p>
-                                <p style={{ fontSize: isMobile ? '0.65rem' : '1rem', fontWeight: 300, margin: 0, fontFamily: "'Montserrat', sans-serif" }}>{isMobile && method.value.includes('@') ? '@thestonehouse...' : method.value}</p>
-                            </motion.a>
-                        ))}
-                    </div>
-
-                    {/* FORM + MAP — CONSOLIDATED SPLIT */}
-                    {/* FORM + MAP — CONSOLIDATED SPLIT */}
-                    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                        {/* MAP ONLY */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
-                        >
-                            <div style={{
-                                padding: isMobile ? '1rem' : '2rem',
-                                background: 'var(--primary)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '12px',
-                                position: 'relative'
-                            }}>
-                                <div className="flex items-start gap-4 mb-6">
-                                    <MapPin size={24} className="text-[#e8d5b5]" />
-                                    <div>
-                                        <h4 className="text-xl text-white mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Stonehouse Landscape</h4>
-                                        <p className="text-[0.65rem] text-[#e8d5b5]/60 tracking-widest font-bold max-w-[200px]">Stone house, Manthamaruthi, Ranni, Kerala, 689676</p>
-                                    </div>
-                                </div>
-
-                                {/* ULTRA COMPACT MAP CONTAINER */}
-                                <div className="relative overflow-hidden" style={{ height: isMobile ? '150px' : '300px', borderRadius: '8px', overflow: 'hidden' }}>
-                                    <iframe
-                                        src="https://www.google.com/maps?q=stone+house+manthamaruthi,ranni,kerala,689676&output=embed"
-                                        width="100%"
-                                        height="100%"
-                                        style={{ border: 0 }}
-                                        allowFullScreen=""
-                                        loading="lazy"
-                                    ></iframe>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
+            <Contact />
         </div>
     );
 };

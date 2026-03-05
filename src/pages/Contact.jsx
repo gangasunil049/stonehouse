@@ -1,200 +1,290 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Phone, MapPin, Send, MessageCircle, Instagram, ExternalLink, Clock } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Phone, MapPin, Send, MessageCircle, Instagram, ExternalLink, Clock, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 
 const Contact = () => {
     useEffect(() => {
         document.title = "Contact | Stonehouse Landscape";
     }, []);
 
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const contactMethods = [
         {
-            icon: <Phone size={28} />,
-            title: "Call Us",
+            icon: <Phone size={20} />,
+            title: "Voice Support",
+            description: "Dedicated assistance for your inquiries.",
             value: "+91 94978 30974",
             link: "tel:+919497830974",
-            label: "Voice Support",
-            bg: "#f5f5f0"
+            accent: "#4A6741"
         },
         {
-            icon: <MessageCircle size={28} />,
-            title: "WhatsApp",
+            icon: <MessageCircle size={20} />,
+            title: "WhatsApp Chat",
+            description: "Quick responses for your garden needs.",
             value: "+91 94978 30974",
             link: "https://wa.me/919497830974",
-            label: "Quick Chat",
-            bg: "#f0faf4"
+            accent: "#128C7E"
         },
         {
-            icon: <Instagram size={28} />,
+            icon: <Instagram size={20} />,
             title: "Instagram",
-            value: "thestonehouselandscaping",
+            description: "Follow our latest landscape stories.",
+            value: "@thestonehouselandscaping",
             link: "https://instagram.com/thestonehouselandscaping",
-            label: "Our Portfolio",
-            bg: "#fdf5f0"
+            accent: "#E1306C"
         }
     ];
 
     return (
-        <div className="contact-page">
+        <div id="contact" className="contact-page" style={{ backgroundColor: '#FCFBFA', overflowX: 'hidden' }}>
 
-            {/* ─── HERO ─────────────────────────────────────────────── */}
-            <section style={{ position: 'relative', height: '55vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', inset: 0 }}>
-                    <img src="/landscaping 2.jpeg" alt="Contact" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.82) 40%, rgba(0,0,0,0.2))' }} />
-                </div>
-                <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-                    <motion.span
-                        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                        style={{ color: 'var(--primary)', fontWeight: 900, letterSpacing: '0.4em', fontSize: '0.7rem', textTransform: 'uppercase', display: 'block', marginBottom: '1.2rem' }}
+            {/* ─── PREMIUM HERO ─────────────────────────────────────────────── */}
+            <section style={{
+                position: 'relative',
+                minHeight: '80vh',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '6rem 0',
+                background: '#1A3620',
+                overflow: 'hidden'
+            }}>
+                {/* Decorative background elements */}
+                <div style={{
+                    position: 'absolute',
+                    top: '-20%',
+                    right: '-10%',
+                    width: '600px',
+                    height: '600px',
+                    background: 'radial-gradient(circle, rgba(74, 103, 65, 0.2) 0%, transparent 70%)',
+                    zIndex: 0
+                }} />
+
+                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        style={{ marginBottom: '4rem' }}
                     >
-                        Get In Touch
-                    </motion.span>
-                    <motion.h1
-                        initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-                        style={{ color: 'white', fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 900, lineHeight: 1, margin: 0 }}
-                    >
-                        Let's Build Your<br />
-                        <span style={{ color: 'var(--primary)', fontStyle: 'italic' }}>Signature</span> Space.
-                    </motion.h1>
+                        <h1 style={{
+                            color: 'white',
+                            fontSize: 'clamp(3.5rem, 8vw, 6.5rem)',
+                            fontWeight: 900,
+                            lineHeight: 1,
+                            letterSpacing: '-0.04em',
+                            margin: 0,
+                            textAlign: 'left'
+                        }}>
+                            LET'S CRAFT YOUR<br />
+                            <span style={{ color: '#E8D5B5' }}>LEGACY.</span>
+                        </h1>
+                    </motion.div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '0.8fr 1.2fr', gap: isMobile ? '2rem' : '4rem', alignItems: 'center' }}>
+                        {/* Image on the left */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, x: -30 }}
+                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                            style={{ position: 'relative' }}
+                        >
+                            <div style={{
+                                borderRadius: '24px',
+                                overflow: 'hidden',
+                                boxShadow: '0 50px 100px rgba(0,0,0,0.3)',
+                                border: '1px solid rgba(255,255,255,0.1)'
+                            }}>
+                                <img src="/landscaping 2.jpeg" alt="Nature Inspired" style={{ width: '100%', height: isMobile ? '350px' : '500px', objectFit: 'cover' }} />
+                                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(26,54,32,0.6), transparent)' }} />
+                            </div>
+                        </motion.div>
+
+                        {/* Description on the right */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <p style={{
+                                color: 'rgba(255,255,255,0.7)',
+                                fontSize: isMobile ? '1.1rem' : '1.4rem',
+                                lineHeight: 1.6,
+                                maxWidth: '600px',
+                                fontWeight: 500
+                            }}>
+                                Whether it's a private estate or a commercial landmark, we bring your vision to life with artisanal precision and nature-inspired elegance.
+                            </p>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
-            {/* ─── CONTACT METHODS — FULL-WIDTH VERTICAL STACK ────── */}
-            <section style={{ background: 'var(--primary)', paddingTop: '5rem', paddingBottom: '3rem' }}>
+            {/* ─── CONTACT GRID — FLOATING CARDS ────────────────────── */}
+            <section style={{ marginTop: '-5rem', position: 'relative', zIndex: 10, paddingBottom: '6rem' }}>
                 <div className="container">
-
-                    <div style={{ maxWidth: '780px', marginBottom: '1.5rem' }}>
-                        <p style={{ fontSize: '0.7rem', fontWeight: 900, letterSpacing: '0.35em', textTransform: 'uppercase', color: '#e8d5b5', marginBottom: '0.8rem' }}>Reach Us Directly</p>
-                        <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, margin: 0, color: 'white' }}>Choose how you'd like to <span style={{ color: '#e8d5b5', fontStyle: 'italic' }}>connect.</span></h2>
-                    </div>
-
-                    {/* THREE CARDS — ONE BELOW ANOTHER */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', marginTop: '3rem' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                        gap: '1.5rem',
+                        maxWidth: '1000px',
+                        margin: '0 auto'
+                    }}>
                         {contactMethods.map((method, index) => (
                             <motion.a
                                 key={index}
                                 href={method.link}
                                 target={method.link.startsWith('http') ? '_blank' : '_self'}
                                 rel="noopener noreferrer"
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
+                                onMouseEnter={() => setHoveredIndex(index)}
+                                onMouseLeave={() => setHoveredIndex(null)}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: index * 0.12 }}
+                                transition={{ delay: index * 0.1 }}
                                 style={{
+                                    background: 'white',
+                                    padding: '1.5rem 1.25rem',
+                                    borderRadius: '16px',
+                                    textDecoration: 'none',
+                                    color: '#1A3620',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    boxShadow: '0 10px 20px rgba(0,0,0,0.03)',
+                                    border: '1px solid rgba(26,54,32,0.05)',
+                                    transition: 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)'
+                                }}
+                                whileHover={{ y: -10, boxShadow: '0 40px 80px rgba(0,0,0,0.1)' }}
+                            >
+                                <div style={{
+                                    width: '50px',
+                                    height: '50px',
+                                    borderRadius: '12px',
+                                    background: method.accent + '15',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '2.5rem',
-                                    padding: '2.5rem 3rem',
-                                    background: 'white',
-                                    border: '2px solid var(--primary)',
-                                    textDecoration: 'none',
-                                    color: 'black',
-                                    cursor: 'pointer',
-                                    transition: 'transform 0.3s, box-shadow 0.3s',
-                                    boxShadow: '0 2px 20px rgba(0,0,0,0.04)'
-                                }}
-                                whileHover={{ scale: 1.012, boxShadow: '0 8px 40px rgba(0,0,0,0.1)' }}
-                            >
-                                {/* Icon bubble */}
-                                <div style={{
-                                    width: '72px', height: '72px', borderRadius: '50%',
-                                    background: method.bg, flexShrink: 0,
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    color: 'var(--primary)', border: '1.5px solid var(--primary)'
+                                    justifyContent: 'center',
+                                    color: method.accent,
+                                    marginBottom: '1rem',
+                                    transition: 'transform 0.5s ease'
                                 }}>
                                     {method.icon}
                                 </div>
+                                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: '0 0 0.25rem' }}>{method.title}</h3>
+                                <p style={{ fontSize: '0.8rem', color: '#666', margin: '0 0 1.2rem', lineHeight: 1.4 }}>{method.description}</p>
 
-                                {/* Text */}
-                                <div style={{ flex: 1 }}>
-                                    <p style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.25em', textTransform: 'uppercase', opacity: 0.4, margin: '0 0 0.4rem' }}>{method.label}</p>
-                                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.4rem' }}>{method.title}</h3>
-                                    <p style={{ fontSize: '1rem', fontWeight: 700, opacity: 0.6, margin: 0 }}>{method.value}</p>
+                                <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <span style={{ fontSize: '0.95rem', fontWeight: 700 }}>{method.value}</span>
+                                    <div style={{
+                                        width: '32px',
+                                        height: '32px',
+                                        borderRadius: '50%',
+                                        background: '#F0F4F0',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        transition: 'background 0.3s ease'
+                                    }}>
+                                        <ArrowRight size={14} />
+                                    </div>
                                 </div>
-
-                                {/* Arrow */}
-                                <ExternalLink size={20} style={{ color: 'var(--primary)', opacity: 0.5, flexShrink: 0 }} />
                             </motion.a>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* ─── INQUIRY FORM ─────────────────────────────────────── */}
-            <section style={{ background: 'white', paddingTop: '5rem', paddingBottom: '5rem' }}>
+            {/* ─── VISIT US SECTION — MAP & OFFICE ────────────────────── */}
+            <section style={{ padding: isMobile ? '3rem 0' : '6rem 0', background: '#1A3620' }}>
                 <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '5rem', alignItems: 'start' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? '1.1fr 0.9fr' : '1.3fr 0.7fr',
+                        gap: '0',
+                        borderRadius: isMobile ? '20px' : '40px',
+                        overflow: 'hidden',
+                        boxShadow: '0 50px 100px rgba(0,0,0,0.3)'
+                    }}>
+                        {/* Map side */}
+                        <div style={{ position: 'relative', height: isMobile ? '300px' : '500px', background: '#222' }}>
+                            <iframe
+                                title="Stonehouse Location"
+                                src="https://www.google.com/maps?q=stone+house+landscaping,manthamruthi,ranny,pincode+689676&output=embed"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0, opacity: 0.8, filter: 'grayscale(0.3) contrast(1.1)' }}
+                                allowFullScreen=""
+                                loading="lazy"
+                            ></iframe>
 
-                        {/* FORM */}
-                        <div>
-                            <p style={{ fontSize: '0.7rem', fontWeight: 900, letterSpacing: '0.35em', textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '0.8rem' }}>Inquiry Form</p>
-                            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 900, marginBottom: '0.8rem' }}>Send a <span style={{ color: 'var(--primary)' }}>Message.</span></h2>
-                            <p style={{ opacity: 0.5, marginBottom: '3rem', fontWeight: 600 }}>Our team will respond within 24 hours.</p>
-
-                            <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                        <label style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.4 }}>Your Name</label>
-                                        <input type="text" placeholder="e.g. Ravi Kumar" style={{ padding: '1.2rem', background: '#f5f5f0', border: 'none', fontWeight: 700, outline: 'none', width: '100%' }} />
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                        <label style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.4 }}>Phone Number</label>
-                                        <input type="tel" placeholder="+91..." style={{ padding: '1.2rem', background: '#f5f5f0', border: 'none', fontWeight: 700, outline: 'none', width: '100%' }} />
-                                    </div>
+                            <div style={{
+                                position: 'absolute',
+                                bottom: '2rem',
+                                left: '2rem',
+                                background: 'white',
+                                padding: '1.5rem',
+                                borderRadius: '15px',
+                                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                                maxWidth: '300px'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#4A6741', marginBottom: '0.8rem' }}>
+                                    <MapPin size={18} />
+                                    <span style={{ fontWeight: 800, fontSize: '0.7rem', textTransform: 'uppercase' }}>Showroom</span>
                                 </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    <label style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.4 }}>Project Location</label>
-                                    <input type="text" placeholder="e.g. Ranni, Pathanamthitta" style={{ padding: '1.2rem', background: '#f5f5f0', border: 'none', fontWeight: 700, outline: 'none', width: '100%' }} />
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    <label style={{ fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.4 }}>Project Details</label>
-                                    <textarea rows="5" placeholder="Describe your landscape vision..." style={{ padding: '1.2rem', background: '#f5f5f0', border: 'none', fontWeight: 700, outline: 'none', resize: 'none', width: '100%' }}></textarea>
-                                </div>
-                                <button className="cta-btn cta-primary" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.2em' }}>
-                                    SEND INQUIRY <Send size={16} />
-                                </button>
-                            </form>
+                                <p style={{ fontSize: isMobile ? '0.6rem' : '0.9rem', fontWeight: 700, margin: 0, color: '#1A3620', lineHeight: 1.4 }}>
+                                    Stone house landscaping,<br />Manthamruthi, Ranny — 689676
+                                </p>
+                            </div>
                         </div>
 
-                        {/* OFFICE INFO + MAP */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                            {/* Hours */}
-                            <div style={{ background: '#f5f5f0', padding: '2.5rem', border: '2px solid var(--primary)' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                                    <Clock size={20} style={{ color: 'var(--primary)' }} />
-                                    <h4 style={{ fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', margin: 0 }}>Office Hours</h4>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.95rem', fontWeight: 700, opacity: 0.6, marginBottom: '0.6rem' }}>
-                                    <span>Mon – Sat</span><span>9:00 AM – 6:00 PM</span>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.95rem', fontWeight: 700, opacity: 0.6 }}>
-                                    <span>Sunday</span><span>Closed</span>
+                        {/* Info side */}
+                        <div style={{ padding: isMobile ? '1.5rem' : '3rem', background: '#F9FAF9', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                            <h2 style={{ fontSize: isMobile ? '1rem' : '2rem', fontWeight: 900, marginBottom: isMobile ? '1rem' : '2rem', color: '#1A3620' }}>VISIT OUR <br /><span style={{ color: '#4A6741' }}>LANDSCAPE LAB.</span></h2>
+
+                            <div style={{ display: 'grid', gap: isMobile ? '1rem' : '2rem' }}>
+                                <div>
+                                    <h4 style={{ fontSize: isMobile ? '0.5rem' : '0.7rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#999', marginBottom: isMobile ? '0.4rem' : '0.8rem' }}>Office Hours</h4>
+                                    <div style={{ display: 'grid', gap: '0.4rem' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, fontSize: isMobile ? '0.6rem' : '0.9rem' }}>
+                                            <span>Mon – Sat</span>
+                                            <span style={{ color: '#4A6741' }}>{isMobile ? '9AM–6PM' : '9:00 AM – 6:00 PM'}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            {/* Map */}
                             <a
-                                href="https://www.google.com/maps?q=9.42219,76.79711"
+                                href="https://www.google.com/maps?q=stone+house+landscaping+manthamruthi+ranny+689676"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                style={{ background: 'black', color: 'white', padding: '2.5rem', textDecoration: 'none', display: 'block' }}
+                                style={{
+                                    marginTop: isMobile ? '1.5rem' : '2.5rem',
+                                    padding: isMobile ? '0.6rem' : '1rem',
+                                    background: '#1A3620',
+                                    color: 'white',
+                                    borderRadius: '100px',
+                                    border: 'none',
+                                    fontWeight: 800,
+                                    fontSize: isMobile ? '0.55rem' : '0.75rem',
+                                    textAlign: 'center',
+                                    textShadow: 'none',
+                                    textDecoration: 'none',
+                                    display: 'inline-block'
+                                }}
                             >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem', color: 'var(--primary)' }}>
-                                    <MapPin size={20} />
-                                    <span style={{ fontSize: '0.7rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Main Showroom</span>
-                                </div>
-                                <h3 style={{ fontSize: '1.6rem', fontWeight: 900, marginBottom: '0.8rem', color: 'white' }}>Visit Our <span style={{ color: 'var(--primary)' }}>Location.</span></h3>
-                                <p style={{ fontSize: '1rem', fontWeight: 600, opacity: 0.6, margin: 0 }}>
-                                    Manthamaruthy, Ranni,<br />Kerala — 689673
-                                </p>
+                                {isMobile ? 'DIRECTIONS' : 'GET DIRECTIONS'}
                             </a>
                         </div>
-
                     </div>
                 </div>
             </section>
-
         </div>
     );
 };

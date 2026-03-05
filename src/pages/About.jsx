@@ -123,7 +123,7 @@ const About = () => {
                                 animate={textControls}
                                 style={{
                                     fontFamily: "'Outfit', sans-serif",
-                                    fontSize: isMobile ? 'clamp(4rem, 20vw, 6rem)' : 'clamp(5rem, 12vw, 9rem)',
+                                    fontSize: isMobile ? 'clamp(3rem, 15vw, 5rem)' : 'clamp(5rem, 12vw, 9rem)',
                                     fontWeight: 900,
                                     lineHeight: 0.9,
                                     letterSpacing: '-0.03em',
@@ -133,7 +133,7 @@ const About = () => {
                                     opacity: 0
                                 }}
                             >
-                                ABOUT<br />US.
+                                ABOUT US.
                             </motion.h1>
 
                             <motion.h2
@@ -149,7 +149,7 @@ const About = () => {
                                     opacity: 0
                                 }}
                             >
-                                "Crafting Legacy Through Stone"
+                                "Crafting Legacy Through Landscaping"
                             </motion.h2>
 
                             <motion.p
